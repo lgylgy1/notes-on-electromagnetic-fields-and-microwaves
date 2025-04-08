@@ -1,0 +1,1218 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>书籍目录侧边栏</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+        }
+        
+        body {
+            display: flex;
+            min-height: 100vh;
+            background-color: #f8f9fa;
+        }
+        
+        /* 侧边栏样式 */
+        .sidebar {
+            width: 240px;
+            background-color: white;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+            padding: 20px 0;
+            height: 100vh;
+            overflow-y: auto;
+            position: sticky;
+            top: 0;
+        }
+        
+        .sidebar-header {
+            padding: 0 20px 15px;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 15px;
+        }
+        
+        .sidebar-header h2 {
+            font-size: 18px;
+            color: #333;
+            font-weight: 600;
+        }
+        
+        .chapter-list {
+            list-style: none;
+        }
+        
+        .chapter-item {
+            padding: 8px 20px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+        }
+        
+        .chapter-item:hover {
+            background-color: #f0f2f5;
+        }
+        
+        .chapter-item.active {
+            background-color: #e6f7ff;
+            border-left: 3px solid #1890ff;
+        }
+        
+        .chapter-icon {
+            width: 20px;
+            height: 20px;
+            margin-right: 12px;
+            background-color: #d9d9d9;
+            border-radius: 4px;
+        }
+        
+        .chapter-title {
+            font-size: 14px;
+            color: #333;
+        }
+        
+        /* 主内容区域 */
+        .main-content {
+            flex: 1;
+            padding: 30px;
+            background-color: white;
+            margin: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+        
+        .chapter-content {
+            display: none;
+        }
+        
+        .chapter-content.active {
+            display: block;
+        }
+        
+        .chapter-content h2 {
+            margin-bottom: 20px;
+            color: #333;
+            font-weight: 500;
+        }
+        
+        .chapter-content p {
+            line-height: 1.8;
+            color: #666;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 左侧边栏 -->
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <h2>Notes on Electromagnetic Fields and Microwaves</h2>
+        </div>
+        <ul class="chapter-list">
+            <li class="chapter-item active" data-chapter="preface">
+                <div class="chapter-icon"></div>
+                <span class="chapter-title">序</span>
+            </li>
+            <li class="chapter-item" data-chapter="ch1">
+                <div class="chapter-icon"></div>
+                <span class="chapter-title">第1章</span>
+            </li>
+            <li class="chapter-item" data-chapter="ch2">
+                <div class="chapter-icon"></div>
+                <span class="chapter-title">第2章</span>
+            </li>
+            <li class="chapter-item" data-chapter="ch3">
+                <div class="chapter-icon"></div>
+                <span class="chapter-title">第3章</span>
+            </li>
+            <li class="chapter-item" data-chapter="ch4">
+                <div class="chapter-icon"></div>
+                <span class="chapter-title">第4章</span>
+            </li>
+            <li class="chapter-item" data-chapter="ch5">
+                <div class="chapter-icon"></div>
+                <span class="chapter-title">第5章</span>
+            </li>
+            <li class="chapter-item" data-chapter="ch6">
+                <div class="chapter-icon"></div>
+                <span class="chapter-title">第6章</span>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- 主内容区域 -->
+    <main class="main-content">
+        <!-- 序 -->
+        <div class="chapter-content active" id="preface">
+            <h2>序</h2>
+            <p>欢迎阅读这份笔记，这份笔记旨在为读者提供电磁场与微波的复习指南。</p>
+        </div>
+        
+        <!-- 第1章 初识算法 -->
+        <div class="chapter-content" id="ch1">
+            <h2>第1章</h2>
+            <div class="section">
+                <h2>1. 矢量代数公式</h2>
+                
+                <h3>矢量和差运算</h3>
+                <div class="formula">
+                    分量法公式：$$\vec{A}+\vec{B}=(A_{x}\vec{a}_{x}+A_{y}\vec{a}_{y}+A_{z}\vec{a}_{z})+(B_{x}\vec{a}_{x}+B_{y}\vec{a}_{y}+B_{z}\vec{a}_{z})$$
+                </div>
+                
+                <h3>点积（标量积）</h3>
+                <div class="formula">
+                    定义式：$$\vec{A}\cdot\vec{B}=A\cdot B\cdot\cos\theta_{AB}$$<br>
+                    分量表达式：$$\vec{A}\cdot\vec{B}=A_{x}B_{x}+A_{y}B_{y}+A_{z}B_{z}$$<br>
+                    模的计算：$$|\vec{A}|=\sqrt{\vec{A}\cdot\vec{A}}$$
+                </div>
+                
+                <h3>叉积（矢量积）</h3>
+                <div class="formula">
+                    模的计算：$$|\vec{A}\times\vec{B}| = |A\cdot B\cdot\sin\theta_{AB}|$$<br>
+                    行列式表达式：
+                    <div class="matrix">
+                        
+        $$
+        \vec{A}\times\vec{B}=\begin{vmatrix}\vec{e}_{x}&\vec{e}_{y}&\vec{e}_{z}\\A_{x}&A_{y}&A_{z}\\B_{x}&B_{y}&B_{z}\end{vmatrix}
+        $$
+                    </div><br>
+                    性质：<br>
+                    $$\vec{A}\times\vec{B}=-\vec{B}\times\vec{A}$$（反交换律）<br>
+                    $$\vec{A}\times(\vec{B}+\vec{C})=\vec{A}\times\vec{B}+\vec{A}\times\vec{C}$$（分配律）
+                </div>
+                
+                <h3>标量三重积</h3>
+                <div class="formula">
+                    循环互换规律：$$\vec{A}\cdot(\vec{B}\times\vec{C})=\vec{B}\cdot(\vec{C}\times\vec{A})=\vec{C}\cdot(\vec{A}\times\vec{B})$$
+                </div>
+                
+                <h3>矢量三重积</h3>
+                <div class="formula">
+                    展开公式：$$\vec{A}\times(\vec{B}\times\vec{C})=\vec{B}(\vec{C}\cdot\vec{A})-\vec{C}(\vec{A}\cdot\vec{B})$$
+                </div>
+            </div>
+        
+            <div class="section">
+                <h2>2. 坐标系相关公式</h2>
+                
+                <h3>直角坐标系</h3>
+                <div class="formula">
+                    矢量表示：$$\vec{A}=A_{x}\vec{a}_{x}+A_{y}\vec{a}_{y}+A_{z}\vec{a}_{z}$$<br>
+                    微分长度元：$$d\vec{l}=\vec{a}_{x}dx+\vec{a}_{y}dy+\vec{a}_{z}dz$$<br>
+                    微分面积元：$$d\vec{S}_{x}=\vec{a}_{x}dydz$$, $$d\vec{S}_{y}=\vec{a}_{y}dzdx$$, $$d\vec{S}_{z}=\vec{a}_{z}dxdy$$<br>
+                    微分体积元：$$dV = dxdydz$$
+                </div>
+                
+                <h3>柱坐标系</h3>
+                <div class="formula">
+                    矢量表示：$$\vec{A}=A_{r}\vec{a}_{r}+A_{\varphi}\vec{a}_{\varphi}+A_{z}\vec{a}_{z}$$<br>
+                    微分长度元：$$d\vec{l}=\vec{a}_{r}dr+\vec{a}_{\varphi}(r\cdot d\varphi)+\vec{a}_{z}dz$$<br>
+                    微分面积元：$$d\vec{S}_{r}=\vec{a}_{r}(r\cdot d\varphi)dz$$, $$d\vec{S}_{\varphi}=\vec{a}_{\varphi}dr dz$$, $$d\vec{S}_{z}=\vec{a}_{z}(r\cdot d\varphi)dr$$<br>
+                    微分体积元：$$dV = dr\cdot(r d\varphi)\cdot dz$$
+                </div>
+                
+                <h3>球坐标系</h3>
+                <div class="formula">
+                    矢量表示：$$\vec{A}=A_{R}\vec{a}_{R}+A_{\theta}\vec{a}_{\theta}+A_{\varphi}\vec{a}_{\varphi}$$<br>
+                    微分长度元：$$d\vec{l}=\vec{a}_{R}dR+\vec{a}_{\theta}(R\cdot d\theta)+\vec{a}_{\varphi}(R\cdot\sin\theta\cdot d\varphi)$$<br>
+                    微分面积元：$$d\vec{S}_{R}=\vec{a}_{R}(R\sin\theta\cdot d\varphi)\cdot(Rd\theta)$$, $$d\vec{S}_{\theta}=\vec{a}_{\theta}(R\sin\theta\cdot d\varphi)\cdot dR$$, $$d\vec{S}_{\varphi}=\vec{a}_{\varphi}(R d\theta)\cdot dR$$<br>
+                    微分体积元：$$dV=(R d\theta)\cdot(R\sin\theta\cdot d\varphi)\cdot dR$$
+                </div>
+            </div>
+        
+            <div class="section">
+                <h2>3. "三度"相关公式</h2>
+                
+                <h3>梯度</h3>
+                <div class="formula">
+                    定义式：$$\nabla U = gradU=\vec{a}_{n}\frac{dU}{dn}=(\vec{a}_{x}\frac{\partial u}{\partial x}+\vec{a}_{y}\frac{\partial u}{\partial y}+\vec{a}_{z}\frac{\partial u}{\partial z})$$<br>
+                    微分关系：$$du=\nabla u\cdot d\vec{l}$$<br>
+                    不同坐标系下的∇算子：<br>
+                    直角坐标系：$$\nabla=\vec{a}_{x}\frac{\partial}{\partial x}+\vec{a}_{y}\frac{\partial}{\partial y}+\vec{a}_{z}\frac{\partial}{\partial z}$$<br>
+                    柱坐标系：$$\nabla=\vec{a}_{r}\frac{\partial}{\partial r}+\vec{a}_{\varphi}\frac{1}{r}\frac{\partial}{\partial \varphi}+\vec{a}_{z}\frac{\partial}{\partial z}$$<br>
+                    球坐标系：$$\nabla=\vec{a}_{R}\frac{\partial}{\partial R}+\vec{a}_{\theta}\frac{1}{R}\frac{\partial}{\partial \theta}+\vec{a}_{\varphi}\frac{1}{R\cdot\sin\theta}\frac{\partial}{\partial \varphi}$$
+                </div>
+                
+                <h3>散度</h3>
+                <div class="formula">
+                    定义式：$$div\vec{A}=\lim\limits_{\Delta v \to 0}\frac{\oint_{S}\vec{A}\cdot d\vec{s}}{\Delta V}=\nabla\cdot\vec{A}$$<br>
+                    不同坐标系表达式：<br>
+                    直角坐标系：$$\nabla\cdot\vec{A}=\frac{\partial A_{x}}{\partial x}+\frac{\partial A_{y}}{\partial y}+\frac{\partial A_{z}}{\partial z}$$<br>
+                    柱坐标系：$$\nabla\cdot\vec{A}=\frac{1}{r}\cdot\frac{\partial}{\partial r}(r\cdot A_{r})+\frac{1}{r}\cdot\frac{\partial A_{\varphi}}{\partial \varphi}+\frac{\partial A_{z}}{\partial z}$$<br>
+                    球坐标系：$$\nabla\cdot\vec{A}=\frac{1}{R^{2}}\cdot\frac{\partial}{\partial R}(R^{2}\cdot A_{R})+\frac{1}{R\cdot\sin\theta}\cdot\frac{\partial}{\partial \theta}(A_{\theta}\cdot\sin\theta)+\frac{1}{R\cdot\sin\theta}\cdot\frac{\partial A_{\varphi}}{\partial \varphi}$$
+                </div>
+                
+                <h3>旋度</h3>
+                <div class="formula">
+                    定义式：$$rot_{n}\vec{A}=curl_{n}\vec{A}=\lim\limits_{\Delta S_{n} \to 0}\frac{\oint_{C}\vec{A}\cdot d\vec{l}}{\Delta S_{n}}=(\nabla\times\vec{A})_{n}$$<br>
+                    直角坐标系表达式：
+                    <div class="matrix">
+                        
+        $$
+        \nabla\times\vec{B}=\begin{vmatrix}\vec{a}_{x}&\vec{a}_{y}&\vec{a}_{z}\\\frac{\partial}{\partial x}&\frac{\partial}{\partial y}&\frac{\partial}{\partial z}\\B_{x}&B_{y}&B_{z}\end{vmatrix}=\vec{a}_{x}(\frac{\partial B_{z}}{\partial y}-\frac{\partial B_{y}}{\partial z})+\vec{a}_{y}(\frac{\partial B_{x}}{\partial z}-\frac{\partial B_{z}}{\partial x})+\vec{a}_{z}(\frac{\partial B_{y}}{\partial x}-\frac{\partial B_{x}}{\partial y})
+        $$
+                    </div>
+                </div>
+            </div>
+        
+            <div class="section">
+                <h2>4. "三定理"公式</h2>
+                
+                <h3>高斯定理（散度定理）</h3>
+                <div class="formula">
+                    $$\int_{V}(\nabla\cdot\vec{A})dv=\oint_{S}\vec{A}\cdot d\vec{s}$$
+                </div>
+                
+                <h3>斯托克斯定理</h3>
+                <div class="formula">
+                    $$\int_{S}(\nabla\times\vec{A})\cdot d\vec{S}=\oint_{C}\vec{A}\cdot d\vec{l}$$
+                </div>
+                
+                <h3>亥姆霍兹定理</h3>
+                <div class="formula">
+                    矢量分解：$$\vec{F}=-\nabla U+\nabla\times\vec{A}$$<br>
+                    恒等式：<br>
+                    $$\nabla\times\nabla U\equiv0$$（标量场梯度的旋度为零）<br>
+                    $$\nabla\cdot(\nabla\times\vec{A})\equiv0$$（矢量场旋度的散度为零）
+                </div>
+            </div>
+        
+            <div class="section">
+                <h2>5. 运算基本公式</h2>
+                
+                <h3>梯度运算</h3>
+                <div class="formula">
+                    $$\nabla f(u,v)=\frac{\partial f}{\partial u}\nabla u+\frac{\partial f}{\partial v}\nabla v$$<br>
+                    $$\nabla(u\pm v)=\nabla u\pm\nabla v$$<br>
+                    $$\nabla(Cu)=C\nabla u$$（C为常数）
+                </div>
+                
+                <h3>散度运算</h3>
+                <div class="formula">
+                    $$\nabla\cdot(\vec{F}\pm\vec{G})=\nabla\cdot\vec{F}\pm\nabla\cdot\vec{G}$$<br>
+                    $$\nabla\cdot(C\vec{F})=C\nabla\cdot\vec{F}$$（C为常数）<br>
+                    $$\nabla\cdot(u\vec{F}) = u\nabla\cdot\vec{F}+\vec{F}\cdot\nabla u$$（u为标量函数）
+                </div>
+                
+                <h3>旋度运算</h3>
+                <div class="formula">
+                    $$\nabla\cdot(\vec{F}\times\vec{G})=\vec{G}\cdot\nabla\times\vec{F}-\vec{F}\cdot\nabla\times\vec{G}$$<br>
+                    $$\nabla\times(u\vec{F})=u\nabla\times\vec{F}+\nabla u\times\vec{F}$$<br>
+                    $$\nabla\times(C\vec{F})=C\nabla\times\vec{F}$$（C为常数）<br>
+                    $$\nabla\times(\vec{F}\pm\vec{G})=\nabla\times\vec{F}\pm\nabla\times\vec{G}$$<br>
+                    $$\nabla\times\vec{C}=0$$（ $$\vec{C}$$ 为常矢量）
+                </div>
+            </div>
+        
+        </div>
+        
+        <!-- 第二章 -->
+        <div class="chapter-content" id="ch2">
+            <h2>第2章</h2>
+            <div class="section">
+                <h2>电荷相关公式</h2>
+                
+                <h3>电荷密度公式</h3>
+                <div class="formula">
+                    <strong>体密度</strong>：$$\rho_{V}(\vec{r})=\lim\limits_{\Delta v \to 0}\frac{\Delta q}{\Delta v}(C/m^{3})$$，用于描述空间某点附近单位体积内的电荷量。<br>
+                    <strong>线密度</strong>：$$\rho_{l}(\vec{r})=\lim\limits_{\Delta l \to 0}\frac{\Delta q}{\Delta l}(C/m)$$，表示单位长度线段上的电荷量。<br>
+                    <strong>面密度</strong>：$$\sigma_{S}(\vec{r})=\lim\limits_{\Delta S \to 0}\frac{\Delta q}{\Delta S}(C/m^{2})$$，指单位面积上的电荷量。
+                </div>
+                
+                <h3>库仑定律公式</h3>
+                <div class="formula">
+                    真空中：$$\vec{F}_{12}=\frac{q_{1} \cdot q_{2}}{4 \pi \varepsilon_{0} \cdot R^{2}} \vec{a}_{R}$$，$$\varepsilon_{0}\approx8.85×10^{-12}(F/m)$$为真空中介电常数，该公式表明真空中两个静止点电荷间的作用力与电荷量乘积成正比，与距离平方成反比。<br>
+                    介质中：$$\vec{F}_{12}=\frac{q_{1} \cdot q_{2}}{4 \pi \varepsilon \cdot R^{2}} \vec{a}_{R}$$，$$\varepsilon$$为介质介电常数。
+                </div>
+                
+                <h3>电场强度公式</h3>
+                <div class="formula">
+                    定义式：$$\vec{E}=\lim\limits_{q \to 0}\frac{\vec{F}}{q}(N/C或V/m)$$，通过单位试验电荷所受电场力定义电场强度。<br>
+                    真空中静止点电荷的电场强度：$$\vec{E}(\vec{R}, q_{1})=\frac{q_{1}}{4 \pi \varepsilon_{0} R^{2}} \vec{a}_{R}=-\frac{q_{1}}{4 \pi \varepsilon_{0}} \nabla(\frac{1}{R})$$。<br>
+                    多个点电荷电场强度叠加：$$\vec{E}=\sum\limits_{i = 1}^{N} \vec{E}_{i}$$，即总电场强度为各点电荷单独产生电场强度的矢量和。<br>
+                    分布电荷电场强度：$$d\vec{E}(\vec{r}, dq)=\frac{dq}{4 \pi \varepsilon_{0}} \cdot \frac{\vec{a}_{R}}{R^{2}}$$，$$dq = \rho_{V}dV$$（体分布电荷微元）或$$\sigma_{S}ds$$（面分布电荷微元）或$$\rho_{l}dl$$（线分布电荷微元），用于计算分布电荷产生的电场强度。
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>静电场基本方程公式</h2>
+                
+                <h3>散度方程</h3>
+                <div class="formula">
+                    积分形式：$$\oint_{S} \vec{E} \cdot d \vec{S}=\frac{1}{\varepsilon_{0}} \sum_{i = 1}^{n} q_{i}$$，表明穿出闭合曲面的净电通量与曲面内电荷代数和的关系，体现了静电场的通量源特性。<br>
+                    微分形式：$$\nabla \cdot \vec{E}=\frac{\rho}{\varepsilon_{0}}$$，$$\rho$$为电荷体密度，描述了空间某点电场强度散度与该点电荷体密度的关系。
+                </div>
+                
+                <h3>旋度方程</h3>
+                <div class="formula">
+                    积分形式：$$\oint_{C} \vec{E} \cdot d \vec{l}=0$$，说明静电场沿任意闭合路径的环流量为零，反映电场力做功与路径无关的保守场特性。<br>
+                    微分形式：$$\nabla × \vec{E}=0$$，表明静电场是无旋场，不存在旋度源。
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>高斯定理相关公式及应用</h2>
+                
+                <h3>高斯定理公式</h3>
+                <div class="formula">
+                    $$\oint_{S} \vec{E} \cdot d \vec{S}=\frac{1}{\varepsilon_{0}} \sum_{i = 1}^{n} q_{i}=\frac{1}{\varepsilon_{0}} \int_{V} \rho dV$$，是静电场的重要定理，用于计算具有对称性电荷分布的电场强度。
+                </div>
+                
+                <h3>应用示例</h3>
+                <div class="formula">
+                    <strong>无限长带电直线</strong>：以线电荷为轴、$$r$$为半径、单位长度为高作圆柱面，$$\oint_{S} \vec{E} \cdot d \vec{S}=\int_{S_{1}} \vec{E} \cdot d \vec{S}+\int_{S_{2}} \vec{E} \cdot d \vec{S}+\int_{S_{3}} \vec{E} \cdot d \vec{S}=\frac{\rho_{l} \cdot 1}{\varepsilon_{0}}$$，最终可得$$\vec{E}=\vec{a}_{r} \frac{\rho_{l}}{2 \pi r \varepsilon_{0}}$$。<br>
+                    <strong>球面电荷</strong>：对于真空中半径为$$a$$、带电为$$Q$$的导体球，球内$$(r < a)$$：$$\frac{1}{\varepsilon_{0}} \int_{V} \rho dV = 0$$，$$\vec{E}=0$$；球外$$(r > a)$$：$$\frac{1}{\varepsilon_{0}} \int_{V} \rho dV=\frac{Q}{\varepsilon_{0}}$$，$$\oint_{S} \vec{E} \cdot d \vec{S}=E \cdot(4 \pi \cdot r^{2})$$，$$\vec{E}=\frac{1}{4 \pi \varepsilon_{0} \cdot r^{2}} \cdot Q \vec{a}_{R}$$。<br>
+                    <strong>球体电荷</strong>：真空中半径为$$a$$、体密度为$$\rho_{0}$$的球体，球外电场$$\vec{E}=\vec{a}_{R} \frac{\rho_{0} 4 \pi a^{3} / 3}{4 \pi \varepsilon_{0} \cdot r^{2}}=\frac{\rho_{0}}{3 \varepsilon_{0}} \cdot \frac{a^{3}}{r^{2}}$$；球内电场$$E=\int_{0}^{r} \frac{\rho_{0} \cdot 4 \pi r^{\prime 2} d r'}{4 \pi \varepsilon_{0} \cdot r^{2}}=\frac{\rho_{0}}{3 \varepsilon_{0}} r \vec{a}_{R}$$。<br>
+                    <strong>无限大平面电荷</strong>：电荷密度为$$\rho_{s}$$，$$\vec{E}_{1}(\vec{r}) \cdot \hat{e}_{z} S+\vec{E}_{2}(\vec{r}) \cdot(-\hat{e}_{z}) S=\frac{\rho_{s} S}{\varepsilon_{0}}$$，
+            $$
+            \vec{E}=\begin{cases}\frac{\rho_{s}}{2 \varepsilon_{0}} \hat{e}_{z} & (z > 0) \\ -\frac{\rho_{s}}{2 \varepsilon_{0}} \hat{e}_{z} & (z < 0)\end{cases}
+            $$
+            。
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>已知电场分布求电荷分布公式</h2>
+                <div class="formula">
+                    根据散度方程$$\nabla \cdot \vec{E}=\frac{\rho}{\varepsilon_{0}}$$，如已知自由空间球坐标系中电场分布$$E = E_{0}(a / r)^{2} e_{r}(r > a)$$、$$E = E_{0}(r / a)^{2} e_{r}(0 < r < a)$$，通过计算$$\nabla \cdot E=\frac{1}{r^{2}} \frac{\partial}{\partial r}(r^{2} E_{r})$$，可得
+            $$
+            \rho = \begin{cases}0 & r > a \\ \frac{4 \varepsilon_{0} E_{0} r}{a^{2}} & 0 < r < a\end{cases}
+            $$
+            。
+                </div>
+            </div>
+            <div class="section">
+                <h2>电位相关公式</h2>
+                
+                <h3>电场强度与电位关系</h3>
+                <div class="formula">
+                    $$\vec{E}=-\nabla\psi$$，表明电场强度是电位的负梯度，电场强度方向是电位下降最快的方向。
+                </div>
+                
+                <h3>电位差公式</h3>
+                <div class="formula">
+                    $$\psi_{B}-\psi_{A}=\int_{B}^{A}\vec{E}\cdot d\vec{l}$$，其物理含义为$$B$$点到$$A$$点电位的降低量等于电场力做的功，只与起点和终点位置有关，与路径无关。
+                </div>
+                
+                <h3>点电荷电位公式</h3>
+                <div class="formula">
+                    令无穷远处电位为零，$$\psi_{\infty}=0$$，点电荷$$q$$在$$P$$点产生的电位$$\psi_{P点}=\int_{P点}^{\infty}\vec{E}\cdot d\vec{l}=\frac{q}{4\pi\varepsilon_{0}}\cdot\frac{1}{R}$$。
+                </div>
+                
+                <h3>复杂电荷分布电位公式</h3>
+                <div class="formula">
+                    $$\psi=\int\frac{dq}{4\pi\varepsilon R}$$ （根据电荷分布不同，$$dq$$分别对应体电荷$$\rho_{V}dV$$、面电荷$$\sigma_{S}ds$$、线电荷$$\rho_{l}dl$$进行积分；离散点电荷集合则求和）；<br>
+                    若已知电场分布，$$\psi_{B}=\int_{B}^{\infty}\vec{E}\cdot d\vec{l}$$。
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>电位方程</h2>
+                
+                <h3>泊松方程</h3>
+                <div class="formula">
+                    由
+            $$
+            \begin{cases}\nabla\cdot\vec{E}=\frac{\rho}{\varepsilon_{0}}\\\vec{E}=-\nabla\psi\end{cases}
+            $$
+            推导得出$$\nabla^{2}\psi = -\frac{\rho}{\varepsilon_{0}}$$，$$\nabla^{2}$$为拉普拉斯算符。<br>
+                    在直角坐标系下$$\nabla^{2}=\frac{\partial^{2}}{\partial x^{2}}+\frac{\partial^{2}}{\partial y^{2}}+\frac{\partial^{2}}{\partial z^{2}}$$；<br>
+                    柱坐标系下$$\nabla^{2}u(r,\varphi,z)=\frac{1}{r}\frac{\partial}{\partial r}(r\frac{\partial u}{\partial r})+\frac{1}{r^{2}}\frac{\partial^{2}u}{\partial\varphi^{2}}+\frac{\partial^{2}u}{\partial z^{2}}$$；<br>
+                    球坐标系下$$\nabla^{2}u(r,\theta,\varphi)=\frac{1}{r^{2}}\frac{\partial}{\partial r}(r^{2}\frac{\partial u}{\partial r})+\frac{1}{r^{2}\sin\theta}\frac{\partial}{\partial\theta}(\sin\theta\frac{\partial u}{\partial\theta})+\frac{1}{r^{2}\sin^{2}\theta}\frac{\partial^{2}u}{\partial\varphi^{2}}$$。
+                </div>
+                
+                <h3>拉普拉斯方程</h3>
+                <div class="formula">
+                    当空间内没有"体"电荷分布时，$$\nabla^{2}\psi = 0$$。
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>静电场中的导体和介质公式</h2>
+                
+                <h3>电偶极子电场强度公式</h3>
+                <div class="formula">
+                    由间距"很小"的等量正负点电荷组成的电偶极子，$$\vec{p}=q\vec{l}$$（$$\vec{p}$$为电矩矢量），其电场强度$$\vec{E}(\vec{p},\vec{r})=\frac{1}{4\pi\varepsilon_{0}}[\frac{3\cdot(\vec{p}\cdot\vec{r})}{r^{5}}\vec{r}-\frac{1}{r^{3}}\vec{p}]$$。
+                </div>
+                
+                <h3>极化强度相关公式</h3>
+                <div class="formula">
+                    极化强度$$\vec{P}=\lim\limits_{\Delta\tau \to 0}(\frac{\sum\vec{p}}{\Delta\tau})$$（单位：$$C/m^{2}$$），<br>
+                    极化介质体内的束缚电荷密度$$\rho_{pc}=-\nabla\cdot\vec{P}$$，<br>
+                    极化介质体表的束缚电荷密度$$\sigma_{pc}=\vec{P}\cdot\vec{n}$$。
+                </div>
+                
+                <h3>介质中的高斯定理相关公式</h3>
+                <div class="formula">
+                    $$\oint_{S}\vec{E}\cdot d\vec{S}=\frac{Q_{fc}+Q_{pc}}{\varepsilon_{0}}$$，<br>
+                    $$\vec{D}=\varepsilon_{0}\vec{E}+\vec{P}$$，<br>
+                    对于各向同性的均匀介质$$\vec{D}=\varepsilon_{0}(1 + \chi_{e})\vec{E}=\varepsilon_{0}\varepsilon_{r}\vec{E}=\varepsilon\vec{E}$$（$$\chi_{e}$$为极化率，$$\varepsilon_{r}$$为相对介电常数，$$\varepsilon$$为电容率或介电常数），<br>
+                    $$\oint_{S}\vec{D}\cdot d\vec{S}=Q_{fc}$$，<br>
+                    $$\nabla\cdot\vec{D}=\rho_{fc}$$。
+                </div>
+                
+                <h3>静电场基本方程（介质中）</h3>
+                <div class="formula">
+                    <strong>积分形式</strong>：<br>
+                    $$\oint_{S}\vec{E}\cdot d\vec{l}=0$$，<br>
+                    $$\oint_{S}\vec{D}\cdot d\vec{S}=Q_{fc}$$，<br>
+                    $$\vec{D}=\varepsilon_{0}\varepsilon_{r}\vec{E}=\varepsilon\vec{E}$$。<br>
+                    
+                    <strong>微分形式</strong>：<br>
+                    $$\nabla\times\vec{E}=0$$，<br>
+                    $$\nabla\cdot\vec{D}=\rho_{fc}$$。
+                </div>
+            </div>
+            <div class="section">
+                <h2>静电场的边界条件相关公式</h2>
+                
+                <h3>基本方程</h3>
+                <div class="formula">
+                    <strong>积分形式</strong>：<br>
+                    $$\oint \vec{D} \cdot d \vec{S}=\sum q_{fc}$$，<br>
+                    $$\oint \vec{E} \cdot d \vec{l}=0$$。<br>
+                    <strong>微分形式</strong>：<br>
+                    $$\nabla \cdot \vec{D}=\rho_{fc}$$，<br>
+                    $$\nabla × \vec{E}=0$$，<br>
+                    $$\vec{D}=\varepsilon_{0} \varepsilon_{r} \vec{E}=\varepsilon \vec{E}$$（均匀线性各向同性介质特征方程）。
+                </div>
+                
+                <h3>电介质边界条件</h3>
+                <div class="formula">
+                    <strong>法向</strong>：<br>
+                    $$D_{1n}-D_{2n}=\rho_{s}$$，即$$(\varepsilon \vec{E})_{1} \cdot \vec{a}_{n}-(\varepsilon \vec{E})_{2} \cdot \vec{a}_{n}=\rho_{s}$$，<br>
+                    进一步$$\varepsilon_{2} \cdot \frac{\partial \psi_{2}}{\partial n}-\varepsilon_{1} \cdot \frac{\partial \psi_{1}}{\partial n}=\rho_{s}$$。<br>
+                    当界面上无自由电荷时，$$D_{1n}=D_{2n}$$，$$\varepsilon_{1} \cdot \frac{\partial \psi_{1}}{\partial n}=\varepsilon_{2} \cdot \frac{\partial \psi_{2}}{\partial n}$$；<br>
+                    导体表面$$D_{2n}=0$$时，$$D_{1n}=\rho_{s}$$。<br>
+                    
+                    <strong>切向</strong>：<br>
+                    $$E_{1t}=E_{2t}$$，由于$$\vec{E}=-\nabla \psi$$，积分连续性可知$$\psi_{1}=\psi_{2}$$，即电位在界面上连续。
+                </div>
+                
+                <h3>应用公式</h3>
+                <div class="formula">
+                    对于两种介质分界面，由$$D_{1n}=D_{2n}$$和$$E_{1t}=E_{2t}$$可得<br>
+                    
+            $$
+            \begin{cases}E_{1} \cdot \sin \theta_{1}=E_{2} \cdot \sin \theta_{2} \\ \varepsilon_{1} \cdot E_{1} \cdot \cos \theta_{1}=\varepsilon_{2} \cdot E_{2} \cdot \cos \theta_{2}\end{cases}
+            $$
+            ，<br>
+                    进而$$\frac{\tan \theta_{1}}{\tan \theta_{2}}=\frac{\varepsilon_{1}}{\varepsilon_{2}}$$，用于描述电磁场在介质面上的折射关系。
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>电容相关公式</h2>
+                
+                <h3>电容定义公式</h3>
+                <div class="formula">
+                    <strong>传统定义</strong>：对于两个分别带电$$q$$和$$-q$$，电位差为$$U$$的导体，$$C = \frac{q}{U}$$。<br>
+                    <strong>自电容</strong>：孤立导体带电$$q$$，电位为$$\varphi$$，$$C = \frac{q}{\varphi}$$。
+                </div>
+                
+                <h3>电容计算方法公式</h3>
+                <div class="formula">
+                    <strong>假设带电量Q法</strong>：<br>
+                    通过$$Q$$依据电场相关知识求出$$E$$，再由$$E$$计算$$U$$（$$U=\int \vec{E} \cdot d \vec{l}$$），最后$$C=\frac{Q}{U}$$；<br>
+                    或直接由$$Q$$求出$$U$$再计算$$C$$。<br>
+                    
+                    <strong>假设电压U法</strong>：<br>
+                    由$$U$$根据$$\vec{E}=-\nabla \psi$$求出$$E$$，再利用散度方程（如泊松方程$$\nabla^{2} \psi = -\frac{\rho}{\varepsilon}$$）求出$$\rho$$，<br>
+                    进而得到$$Q$$，最终$$C=\frac{Q}{U}$$。<br>
+                    
+                    <strong>能量法</strong>：<br>
+                    已知电场能量$$W_{e}=\frac{1}{2} \varepsilon E^{2}(S \cdot d)=\frac{1}{2} C U^{2}$$，可由$$W_{e}$$、$$E$$、$$U$$中的已知量求出$$C$$。
+                </div>
+                
+                <h3>常见电容计算结果公式</h3>
+                <div class="formula">
+                    <strong>平板电容器</strong>：板间介质为$$\varepsilon$$，面积$$S$$，间距$$d$$，$$C=\frac{S}{d} \cdot \varepsilon$$。<br>
+                    
+                    <strong>同心导体球壳</strong>：内球半径$$a$$，外球壳半径$$b$$，$$C=\frac{4 \pi \varepsilon_{0}}{\frac{1}{a}-\frac{1}{b}}$$。<br>
+                    
+                    <strong>特殊同轴线（部分填充介质）</strong>：<br>
+                    单位长度电容$$C=\frac{\varepsilon \theta+\varepsilon_{0}(2 \pi-\theta)}{\ln(\frac{b}{a})}$$；<br>
+                    一般同轴线（全填充介质$$\varepsilon$$），单位长度电容$$C=\frac{2 \pi \cdot \varepsilon}{\ln(\frac{b}{a})}$$。
+                </div>
+            </div>
+            <div class="section">
+                <h2>电场能量公式</h2>
+                
+                <h3>点电荷电位公式</h3>
+                <div class="formula">
+                    令无穷远处电位为零（$$\psi_{\infty}=0$$），点电荷$$q$$在$$P$$点产生的电位$$\psi_{P点}=\int_{P点}^{\infty}\vec{E}\cdot d\vec{l}=\frac{q}{4\pi\varepsilon_{0}}\cdot\frac{1}{R}$$。
+                </div>
+                
+                <h3>多电荷系统电场能量公式</h3>
+                <div class="formula">
+                    <strong>离散电荷</strong>：<br>
+                    $$W_{N}=\frac{1}{2}\sum_{i = 1}^{N}Q_{i}\cdot\psi_{@i}$$，其中$$\psi_{@i}=\frac{1}{4\pi\varepsilon_{0}}\cdot\sum_{k = 1,k\neq i}^{N}(\frac{Q_{k}}{R_{ik}})$$。<br>
+                    
+                    <strong>体电荷</strong>：<br>
+                    $$W_{e}=\frac{1}{2}\int_{V}\psi\cdot\rho d\tau$$，经推导可得$$W_{e}=\frac{1}{2}\int_{\infty}(\vec{E}\cdot\vec{D})d\tau$$。<br>
+                    对于各向同性介质，$$\vec{D}=\varepsilon\vec{E}$$，则$$W_{e}=\int_{\infty}(\frac{1}{2}\varepsilon E^{2})d\tau$$。
+                </div>
+                
+                <h3>能量密度公式</h3>
+                <div class="formula">
+                    $$w_{e}=\frac{1}{2}\varepsilon E^{2}$$（单位：$$J/m^{3}$$），<br>
+                    电场能量$$W_{e}=\int_{\infty}w_{e}dV$$。
+                </div>
+                
+                <h3>电容器静电能公式</h3>
+                <div class="formula">
+                    $$W_{e}=\frac{1}{2}C\cdot U^{2}=\frac{1}{2}Q\cdot U=\frac{1}{2}\cdot\frac{Q^{2}}{C}$$。
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>静电力公式</h2>
+                
+                <h3>库仑定律</h3>
+                <div class="formula">
+                    真空中距离为$$R$$的两点电荷$$q_{1}$$、$$q_{2}$$之间的作用力<br>
+                    $$\vec{F}_{1 - 2}=\frac{q_{1}\cdot q_{2}}{4\pi\varepsilon_{0}\cdot R^{2}}\vec{a}_{R}$$，<br>
+                    $$\varepsilon_{0}=8.85×10^{-12}(F/m)$$。
+                </div>
+                
+                <h3>虚位移法求静电力公式</h3>
+                <div class="formula">
+                    <strong>固定电荷的孤立系统</strong>：<br>
+                    $$\vec{F}_{Q}=-\nabla W_{e}$$，<br>
+                    在笛卡尔坐标系下$$\vec{F}_{Q}=\left\{F_{Qx},F_{Qy},F_{Qz}\right\}$$，<br>
+                    $$\nabla W_{e}=\left\{\frac{\partial W_{e}}{\partial x},\frac{\partial W_{e}}{\partial y},\frac{\partial W_{e}}{\partial z}\right\}$$。<br>
+                    
+                    <strong>固定电位的导体系统</strong>：<br>
+                    $$\vec{F}_{\psi}=\nabla W_{e}$$。
+                </div>
+            </div>
+        </div>
+
+        <!-- 第三章 -->
+        <div class="chapter-content" id="ch3">
+            <h2>第3章</h2>
+            <div class="section">
+                <h2>电流及其密度公式</h2>
+                
+                <h3>电流定义式</h3>
+                <div class="formula">
+                    $$i=\lim\limits_{\Delta t \to 0}\frac{\Delta q}{\Delta t}=\frac{d q}{d t}$$，<br>
+                    恒定电流$$\frac{d q}{d t} \equiv 常数I$$，$$\frac{d I}{d t} \equiv 0$$。
+                </div>
+                
+                <h3>电流密度公式</h3>
+                <div class="formula">
+                    $$\vec{J}$$方向为正电荷运动方向，大小$$J=\lim\limits_{\Delta S \to 0}\frac{\Delta I}{\Delta S}$$（单位：$$A/m^{2}$$），<br>
+                    $$\vec{J}=\rho\vec{v}$$，<br>
+                    $$I=\int_{S} \vec{J} \cdot d \vec{S}$$。
+                </div>
+                
+                <h3>面电流密度公式</h3>
+                <div class="formula">
+                    $$\vec{J}_{S}$$方向为正电荷运动方向，大小$$J_{S}=\lim\limits_{\Delta l \to 0}\frac{\Delta I}{\Delta l_{\perp}}$$，<br>
+                    $$\vec{J}_{S}=\sigma_{S} \vec{v}$$。
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>电流连续性方程及恒定电场相关公式</h2>
+                
+                <h3>电流连续性方程</h3>
+                <div class="formula">
+                    $$\oint_{S} \vec{J} \cdot d \vec{S}=-\frac{\partial q}{\partial t}$$，<br>
+                    $$\nabla \cdot \vec{J}=-\frac{\partial \rho}{\partial t}$$。
+                </div>
+                
+                <h3>恒定电场电流连续性方程</h3>
+                <div class="formula">
+                    $$\frac{\partial \rho}{\partial t} \equiv 0$$时，<br>
+                    $$\oint_{S} \vec{J} \cdot d \vec{S}=0$$，<br>
+                    $$\nabla \cdot \vec{J}=0$$。
+                </div>
+                
+                <h3>媒质中的恒定电场散度公式</h3>
+                <div class="formula">
+                    $$\nabla \cdot \vec{J}=0$$，<br>
+                    $$\vec{J}=\sigma \vec{E}$$，<br>
+                    $$\nabla \cdot(\sigma \vec{E})=\sigma \nabla \cdot \vec{E}+\vec{E} \cdot \nabla \sigma = 0$$，<br>
+                    当$$\nabla \sigma = 0$$时，$$\nabla \cdot \vec{E}=0$$。
+                </div>
+                
+                <h3>恒定电场旋度公式</h3>
+                <div class="formula">
+                    $$\nabla × \vec{E}=0$$，<br>
+                    $$\oint_{C} \vec{E} \cdot d \vec{l}=0$$。
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>欧姆定律公式</h2>
+                <div class="formula">
+                    $$\vec{J}=\sigma \vec{E}$$，<br>
+                    设某区域电流为$$I$$，两端电压为$$U$$，由$$J=\frac{I}{S}$$，$$E=\frac{U}{l}$$可得$$U = E l$$，<br>
+                    进而$$R = \frac{U}{I}=\frac{l}{\sigma S}$$。
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>恒定电场边界条件公式</h2>
+                
+                <h3>法向边界条件</h3>
+                <div class="formula">
+                    $$J_{1n}=J_{2n}$$，<br>
+                    $$\sigma_{1} E_{1n}=\sigma_{2} E_{2n}$$。
+                </div>
+                
+                <h3>切向边界条件</h3>
+                <div class="formula">
+                    $$E_{1t}=E_{2t}$$，<br>
+                    $$\frac{J_{1t}}{\sigma_{1}}=\frac{J_{2t}}{\sigma_{2}}$$。<br>
+                    综合法向和切向条件可得<br>
+                    
+            $$
+            \begin{cases}J_{1} \cos \theta_{1}=J_{2} \cdot \cos \theta_{2} \\ \sigma_{2} J_{1} \sin \theta_{1}=\sigma_{1} J_{2} \sin \theta_{2}\end{cases}
+            $$
+            ，<br>
+                    $$\frac{\tan \theta_{1}}{\tan \theta_{2}}=\frac{\sigma_{1}}{\sigma_{2}}$$。
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>恒定电场与静电场比拟公式</h2>
+                
+                <h3>基本方程比拟</h3>
+                <div class="formula">
+                    恒定电场<br>
+                    
+            $$
+            \begin{cases}\nabla × \vec{E}=0 \\ \nabla \cdot \vec{J}=0 \\ \vec{J}=\sigma \vec{E} \end{cases}
+            $$
+            ，<br>
+                    静电场<br>
+                    
+            $$
+            \begin{cases}\nabla × \vec{E}=0 \\ \nabla \cdot \vec{D}=0 \\ \vec{D}=\varepsilon \vec{E} \end{cases}
+            $$
+            。
+                </div>
+                
+                <h3>物理量比拟</h3>
+                <div class="formula">
+                    $$\vec{J} \leftrightarrow \vec{D}$$，<br>
+                    $$\vec{E} \leftrightarrow \vec{E}$$，<br>
+                    $$I \leftrightarrow q$$，<br>
+                    $$\sigma \leftrightarrow \varepsilon$$。
+                </div>
+                
+                <h3>电容与电导比拟</h3>
+                <div class="formula">
+                    $$R=\frac{U}{I}=\frac{\int_{l} E \cdot d \vec{l}}{\int_{S} \vec{J} \cdot d \vec{S}}=\frac{\int_{l} E \cdot d \vec{l}}{\int_{S} \sigma \vec{E} \cdot d \vec{S}}$$，<br>
+                    $$C=\frac{q}{U}=\frac{\oint_{S} \vec{D} \cdot d \vec{s}}{\int_{l} \vec{E} \cdot d \vec{l}}=\frac{\varepsilon \oint_{S} \vec{E} \cdot d \vec{s}}{\int_{l} \vec{E} \cdot d \vec{l}}$$，<br>
+                    $$G=\frac{I}{U}=\frac{\int_{s} \vec{J} \cdot d \vec{s}}{\int_{l} \vec{E} \cdot d \vec{l}}=\frac{\sigma \int_{s} \vec{E} \cdot d \vec{s}}{\int_{l} \vec{E} \cdot d \vec{l}}$$，<br>
+                    当电极电导率远大于周围媒质电导率且形状相同时，<br>
+                    $$\frac{G}{C}=\frac{\sigma}{\varepsilon}$$，<br>
+                    $$R \cdot C=\frac{\varepsilon}{\sigma}$$。
+                </div>
+            </div>
+        </div>
+        
+        <!-- 第四章 -->
+        <div class="chapter-content" id="ch4">
+            <h2>第4章</h2>
+            <div class="section">
+                <h2>安培实验定律与磁感应强度</h2>
+                <div class="formula">
+                    真空中，线电流回路$$C_1$$、$$C_2$$，$$C_1$$对$$C_2$$的作用力<br>
+                    $$\vec{F}_{1 - 2}=\frac{\mu_0}{4\pi}\oint_{C_2}\oint_{C_1}\frac{I_2d\vec{l}_2\times(I_1d\vec{l}_1\times\vec{a}_R)}{R^2}$$，<br>
+                    其中$$\mu_0 = 4\pi\times10^{-7}(H/m)$$为真空中磁导率。<br>
+                    由此定义磁感应强度<br>
+                    $$\vec{B}=\frac{\mu_0}{4\pi}\oint_{C_1}\frac{I_1d\vec{l}_1\times\vec{a}_R}{R^2}$$，<br>
+                    更一般形式为<br>
+                    $$\vec{B}=\oint_{S}d\vec{B}=\frac{\mu_0}{4\pi}\oint_{C}\frac{I_{源}d\vec{l}_{源}}{R_{源 - 场}^2}\times\vec{a}_R$$，<br>
+                    对于电流元有<br>
+                    $$d\vec{B}=\frac{\mu_0}{4\pi}\left(\frac{I_{源}d\vec{l}_{源}}{R_{源 - 场}^2}\times\vec{a}_R\right)$$。
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>毕奥-萨伐定律相关公式</h2>
+                <div class="formula">
+                    <strong>线电流</strong>：<br>
+                    $$\vec{B}=\frac{\mu_0I}{4\pi}\oint_{C}\frac{d\vec{l}'\times\vec{a}_R}{R^2}$$。<br>
+                    
+                    <strong>体电流</strong>：<br>
+                    $$\vec{B}=\frac{\mu_0}{4\pi}\int_{V}\frac{\vec{J}\times\vec{a}_R}{R^2}dV'$$。<br>
+                    
+                    <strong>面电流</strong>：<br>
+                    $$\vec{B}=\frac{\mu_0}{4\pi}\int_{S}\frac{\vec{J}_S\times\vec{a}_R}{R^2}dS'$$。
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>恒定磁场基本方程</h2>
+                
+                <h3>散度方程</h3>
+                <div class="formula">
+                    积分形式$$\oint_{S}\vec{B}\cdot d\vec{S}=0$$，<br>
+                    微分形式$$\nabla\cdot\vec{B}=0$$，<br>
+                    表明磁通连续，恒定磁场没有散度源。
+                </div>
+                
+                <h3>旋度方程</h3>
+                <div class="formula">
+                    积分形式$$\oint_{C}\vec{B}\cdot d\vec{l}=\mu_0I$$（安培环路定律），<br>
+                    微分形式$$\nabla\times\vec{B}=\mu_0\vec{J}$$；<br>
+                    以磁场强度$$\vec{H}$$表示，<br>
+                    积分形式$$\oint_{C}\vec{H}\cdot d\vec{l}=I$$，<br>
+                    微分形式$$\nabla\times\vec{H}=\vec{J}$$，<br>
+                    说明恒定磁场有旋度源。
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>矢量磁位相关公式</h2>
+                
+                <div class="formula">
+                    定义$$\vec{B}=\nabla\times\vec{A}$$，<br>
+                    满足$$\nabla\cdot\vec{A}=0$$（库伦规范）。<br>
+                    
+                    由$$\nabla\times\vec{B}=\mu_0\vec{J}$$推出矢量泊松方程<br>
+                    $$\nabla^2\vec{A}=-\mu_0\vec{J}$$，<br>
+                    可分解为<br>
+                    
+            $$
+            \begin{cases}\nabla^2A_x = -\mu_0J_x\\\nabla^2A_y = -\mu_0J_y\\\nabla^2A_z = -\mu_0J_z\end{cases}
+            $$
+            。<br>
+                    
+                    类比标量泊松方程$$\nabla^2\psi = -\frac{\rho}{\varepsilon_0}$$的解<br>
+                    $$\psi=\frac{1}{4\pi\varepsilon_0}\int_{V_{邻}}\left(\frac{\rho}{R_{源 - 场}}\right)dV$$，<br>
+                    可得<br>
+                    $$\vec{A}=\frac{\mu_0}{4\pi}\int_{V_{源}}\left(\frac{\vec{J}}{R_{源 - 场}}\right)dV$$。<br>
+                    
+                    磁通<br>
+                    $$\Phi=\int_{S}\vec{B}\cdot d\vec{S}=\int_{S}(\nabla\times\vec{A})\cdot d\vec{S}=\oint_{C}\vec{A}\cdot d\vec{l}$$。
+                </div>
+            </div>
+            <div class="section">
+                <h2>磁偶极子相关公式</h2>
+                
+                <div class="formula">
+                    <strong>磁偶极子磁矩</strong>：<br>
+                    $$\vec{p}_{m}=I\vec{S}$$。<br>
+                    
+                    <strong>矢量磁位</strong>：<br>
+                    $$\vec{A}=\vec{a}_{\varphi}\left(\frac{\mu_{0}I a^{2}\cdot\sin\theta}{4R^{2}}\right)=\frac{\mu_{0}\vec{p}_{m}\times\vec{a}_{R}}{4\pi\cdot R^{2}}=-\frac{\mu_{0}}{4\pi}\vec{p}_{m}\times\nabla\left(\frac{1}{R}\right)$$。<br>
+                    
+                    <strong>磁感应强度</strong>：<br>
+                    $$\vec{B}=\nabla\times\vec{A}=\vec{a}_{R}\frac{\mu_{0}p_{m}\cos\theta}{2\pi R^{3}}+\vec{a}_{\theta}\frac{\mu_{0}p_{m}\sin\theta}{4\pi R^{3}}$$。
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>磁场中的介质相关公式</h2>
+                
+                <div class="formula">
+                    <strong>磁化强度</strong>：<br>
+                    $$\vec{M}=\lim\limits_{\Delta\tau \to 0}\frac{(N\Delta\tau\cdot\vec{p}_{m})}{\Delta\tau}=N\vec{p}_{m}(A/m)$$。<br>
+                    
+                    <strong>磁化电流密度</strong>：<br>
+                    束缚体电流密度$$\vec{J}_{m}=\nabla\times\vec{M}$$，<br>
+                    束缚面电流密度$$\vec{J}_{ms}=\vec{M}\times\vec{a}_{n}(A/m)$$。<br>
+                    
+                    <strong>磁场强度</strong>：<br>
+                    $$\vec{H}=\frac{\vec{B}}{\mu_{0}}-\vec{M}(A/m)$$，<br>
+                    $$\nabla\times\vec{H}=\vec{J}$$（自由电流体密度）。<br>
+                    
+                    <strong>线性且各向同性媒质</strong>：<br>
+                    $$\vec{M}=\chi_{m}\vec{H}$$，<br>
+                    $$\vec{B}=\mu_{0}(1 + \chi_{m})\vec{H}=\mu_{0}\mu_{r}\vec{H}=\mu\vec{H}$$，<br>
+                    其中$$\mu_{r}=1 + \chi_{m}=\frac{\mu}{\mu_{0}}$$为相对磁导率，<br>
+                    $$\chi_{m}$$为磁化率。
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>磁介质的边界条件相关公式</h2>
+                
+                <div class="formula">
+                    <strong>法向</strong>：<br>
+                    $$B_{1n}=B_{2n}$$（分界面法向分量连续），<br>
+                    $$\vec{A}_{1}=\vec{A}_{2}$$。<br>
+                    
+                    <strong>切向</strong>：<br>
+                    $$H_{1t}-H_{2t}=J_{sFree}$$（$$J_{sFree}$$为自由表面电流密度），<br>
+                    若没有自由表面电流，则$$H_{1t}=H_{2t}$$，<br>
+                    $$\vec{a}_{n}\times\vec{H}_{1}=\vec{a}_{n}\times\vec{H}_{2}$$。
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>电感相关公式</h2>
+                
+                <div class="formula">
+                    <strong>自感</strong>：<br>
+                    $$L=\frac{\Psi}{I}=L_{外}+L_{内}$$，<br>
+                    外自感$$L_{外}=\frac{\Phi_{L_{0}-L_{2}}}{I}$$，<br>
+                    内自感$$L_{内}=\frac{\mu_{0}}{4\pi}\oint_{L_{2}}\oint_{L_{0}}\frac{d\vec{l}_{0}\cdot d\vec{l}_{2}}{R}$$。<br>
+                    
+                    <strong>互感</strong>：<br>
+                    $$M_{12}=\frac{\Psi_{12}}{I_{1}}=\frac{\mu_{0}}{4\pi}\oint_{L_{2}}\oint_{L_{1}}\frac{d\vec{l}_{1}\cdot d\vec{l}_{2}}{R_{12}}$$，<br>
+                    $$M_{21}=\frac{\Psi_{21}}{I_{2}}=\frac{\mu_{0}}{4\pi}\oint_{L_{1}}\oint_{L_{2}}\frac{d\vec{l}_{2}\cdot d\vec{l}_{1}}{R_{21}}$$，<br>
+                    且$$M_{12}=M_{21}$$。
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>磁场能量相关公式</h2>
+                
+                <div class="formula">
+                    <strong>单个载流线圈磁场能量</strong>：<br>
+                    $$W=\int_{0}^{I_{0}}LI dI=\frac{1}{2}LI_{0}^{2}=\frac{1}{2}\psi I$$。<br>
+                    
+                    <strong>多个载流线圈磁场能量</strong>：<br>
+                    $$W=\frac{1}{2}\sum_{i = 1}^{N}\sum_{j = 1}^{N}M_{ij}I_{i}I_{j}$$。<br>
+                    
+                    <strong>磁场能量密度</strong>：<br>
+                    $$w=\frac{1}{2}\vec{H}\cdot\vec{B}=\frac{1}{2}\frac{B^{2}}{\mu}=\frac{1}{2}\mu H^{2}$$。
+                </div>
+            </div>
+        </div>
+
+        <!-- 第五章 -->
+        <div class="chapter-content" id="ch5">
+            <h2>第5章</h2>
+            <div class="section">
+                <h2>静电场边值问题相关公式</h2>
+                
+                <div class="formula">
+                    <strong>泛定方程</strong>：<br>
+                    泊松方程$$\nabla^{2}\varphi = -\frac{\rho}{\varepsilon}$$，<br>
+                    拉普拉斯方程$$\nabla^{2}\varphi = 0$$。<br>
+                    
+                    <strong>边值问题分类</strong>：<br>
+                    狄理赫利问题（已知整个边界上的电位）、<br>
+                    纽曼问题（已知整个边界上电位的法导）、<br>
+                    混合问题（已知部分边界电位 + 另一部分边界电位法导）。
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>直接积分法公式</h2>
+                
+                <div class="formula">
+                    以导体球为例，球外电位求解时，在球坐标系下对拉普拉斯方程<br>
+                    $$\nabla^{2}\psi = 0$$展开<br>
+                    $$\frac{1}{r^{2}}\frac{d}{dr}(r^{2}\frac{d\psi}{dr}) = 0$$，<br>
+                    积分得$$\psi = -\frac{C_{1}}{r} + C_{2}$$，<br>
+                    再结合边界条件确定常数。
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>分离变量法公式</h2>
+                
+                <h3>直角坐标系</h3>
+                <div class="formula">
+                    拉普拉斯方程<br>
+                    $$\nabla^{2}\psi=\frac{\partial^{2}\psi}{\partial x^{2}}+\frac{\partial^{2}\psi}{\partial y^{2}}+\frac{\partial^{2}\psi}{\partial z^{2}} = 0$$，<br>
+                    设$$\psi(x,y,z)=X(x)Y(y)Z(z)$$，<br>
+                    代入后得$$\frac{X''}{X}+\frac{Y''}{Y}+\frac{Z''}{Z}=0$$，<br>
+                    令$$\frac{X''}{X}=-k_{x}^{2}$$，$$\frac{Y''}{Y}=-k_{y}^{2}$$，$$\frac{Z''}{Z}=-k_{z}^{2}$$，<br>
+                    根据$$k^{2}$$取值不同，解的形式为三角函数、指数函数或线性函数。
+                </div>
+                
+                <h3>柱坐标系</h3>
+                <div class="formula">
+                    拉普拉斯方程<br>
+                    $$\frac{1}{r}\frac{\partial}{\partial r}(r\frac{\partial u}{\partial r})+\frac{1}{r^{2}}\frac{\partial^{2}u}{\partial \varphi^{2}}+\frac{\partial^{2}u}{\partial z^{2}} = 0$$。<br>
+                    
+                    电位只与$$r$$有关时，<br>
+                    $$\frac{1}{r}\frac{\partial}{\partial r}(r\frac{\partial u}{\partial r}) = 0$$，<br>
+                    解为$$u(r)=C\ln r + D$$；<br>
+                    
+                    电位只与$$r$$、$$\varphi$$有关时，设$$u(r,\varphi)=R(r)\varPhi(\varphi)$$，<br>
+                    可得$$\frac{1}{R}r\frac{d}{dr}(r\frac{dR}{dr})+\frac{1}{\varPhi}\frac{d^{2}\varPhi}{d\varphi^{2}} = 0$$，<br>
+                    令$$\frac{1}{R}r\frac{d}{dr}(r\frac{dR}{dr}) = k^{2}$$，<br>
+                    $$\frac{1}{\varPhi}\frac{d^{2}\varPhi}{d\varphi^{2}}=-k^{2}$$，<br>
+                    通解为$$C_{0}+D_{0}\ln r+\sum_{m = 1}^{\infty}(C_{m}r^{m}+D_{m}r^{-m})(A_{m}\cos m\varphi + B_{m}\sin m\varphi)$$。
+                </div>
+                
+                <h3>球坐标系</h3>
+                <div class="formula">
+                    拉普拉斯方程<br>
+                    $$\frac{1}{r^{2}}\frac{\partial}{\partial r}(r^{2}\frac{\partial u}{\partial r})+\frac{1}{r^{2}\sin\theta}\frac{\partial}{\partial \theta}(\sin\theta\frac{\partial u}{\partial \theta})+\frac{1}{r^{2}\sin^{2}\theta}\frac{\partial^{2}u}{\partial \varphi^{2}} = 0$$，<br>
+                    对于轴对称问题（与$$\varphi$$无关），设$$\psi = R(r)\Theta(\theta)$$，<br>
+                    有$$\frac{1}{R}\frac{d}{dr}(r^{2}\frac{dR}{dr}) = k^{2}$$，<br>
+                    $$\frac{1}{\Theta\sin\theta}\frac{d}{d\theta}(\sin\theta\frac{d\Theta}{d\theta})=-k^{2}$$，<br>
+                    通解为$$\psi=\sum_{m = 0}^{\infty}(A_{m}\cdot r^{m}+B_{m}\cdot r^{-(m + 1)})\cdot P_{m}(\cos\theta)$$，<br>
+                    $$P_{m}(x)=\frac{1}{2^{m}\cdot m!}\cdot\frac{d^{m}}{dx^{m}}((x^{2}-1)^{m})$$为勒让德多项式。
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>有限差分法公式</h2>
+                
+                <div class="formula">
+                    <strong>二维直角坐标系中</strong>：<br>
+                    $$\frac{\partial^{2}\varphi}{\partial x^{2}}\approx\frac{\varphi_{i-1,j}+\varphi_{i+1,j}-2\varphi_{i,j}}{h^{2}}$$，<br>
+                    $$\frac{\partial^{2}\varphi}{\partial y^{2}}\approx\frac{\varphi_{i,j-1}+\varphi_{i,j+1}-2\varphi_{i,j}}{h^{2}}$$。<br>
+                    
+                    <strong>拉普拉斯方程离散化</strong>：<br>
+                    $$\frac{\partial^{2}\varphi}{\partial x^{2}}+\frac{\partial^{2}\varphi}{\partial y^{2}} = 0$$ 离散化为<br>
+                    $$\varphi_{i,j}=\frac{1}{4}(\varphi_{i-1,j}+\varphi_{i,j-1}+\varphi_{i+1,j}+\varphi_{i,j+1})$$。<br>
+                    
+                    <strong>泊松方程离散化</strong>：<br>
+                    $$\frac{\partial^{2}\varphi}{\partial x^{2}}+\frac{\partial^{2}\varphi}{\partial y^{2}} = -\frac{\rho_{s}}{\varepsilon_{0}}$$ 离散化为<br>
+                    $$\varphi_{i,j}=\frac{1}{4}(\varphi_{i-1,j}+\varphi_{i,j-1}+\varphi_{i+1,j}+\varphi_{i,j+1}+\frac{\rho_{s}}{\varepsilon_{0}}h^{2})$$。<br>
+                    
+                    <strong>简单迭代法</strong>：<br>
+                    $$\varphi_{i,j}^{k+1}=\frac{1}{4}(\varphi_{i-1,j}^{k}+\varphi_{i,j-1}^{k}+\varphi_{i+1,j}^{k}+\varphi_{i,j+1}^{k})$$。<br>
+                    
+                    <strong>超松弛迭代法</strong>：<br>
+                    $$\varphi_{i,j}^{k+1}=\varphi_{i,j}^{k}+\gamma(\tilde{\varphi}_{i,j}^{k+1}-\varphi_{i,j}^{k})$$，<br>
+                    $$\tilde{\varphi}_{i,j}^{k+1}=\frac{1}{4}(\varphi_{i-1,j}^{k+1}+\varphi_{i,j-1}^{k+1}+\varphi_{i+1,j}^{k}+\varphi_{i,j+1}^{k})$$，<br>
+                    $$\gamma_{opt}=2/[1+\sin(\frac{\pi}{M-1})]$$（$$M$$为节点数）。
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>镜像法公式</h2>
+                
+                <h3>平面镜像</h3>
+                <div class="formula">
+                    点电荷$$q$$位于接地导体平面上方，镜像电荷$$q^{*}=-q$$，<br>
+                    电位$$\psi(x,y,z)=\frac{q}{4\pi\cdot\varepsilon_{0}}\cdot(\frac{1}{R_{q}}-\frac{1}{R_{q^{*}}})$$，<br>
+                    $$R_{q}=|\vec{P}-h\vec{a}_{z}|$$，$$R_{q^{*}}=|\vec{P}+h\vec{a}_{z}|$$。
+                </div>
+                
+                <h3>柱面镜像</h3>
+                <div class="formula">
+                    无限长直导线线电荷$$\rho_{l}$$与长导体柱问题，<br>
+                    镜像电荷$$\rho_{l}^{*}=-\rho_{l}$$，<br>
+                    $$|OP^{*}|=\frac{a^{2}}{d}$$（$$a$$为圆柱半径，$$d$$为线电荷到圆柱中心距离）。
+                </div>
+                
+                <h3>球面镜像</h3>
+                <div class="formula">
+                    点电荷$$Q$$位于接地导体球旁边，球半径为$$a$$，<br>
+                    镜像电荷电量$$Q^{*}=-\frac{a}{d}Q$$，位置$$d'=\frac{a^{2}}{d}$$，<br>
+                    球外电位$$\varphi=\frac{1}{4\pi\cdot\varepsilon_{0}}\cdot(\frac{Q}{r_{MQ}}+\frac{Q^{*}}{r_{MQ^{*}}})$$；<br>
+                    
+                    点电荷位于不接地导体球附近，有两个镜像电荷：<br>
+                    一个使导体表面电位为$$0$$（$$Q'=-\frac{a}{d}Q$$，$$d'=\frac{a^{2}}{d}$$），<br>
+                    另一个使导体表面电位为$$V$$（$$Q'' = q_{0}-Q' = q_{0}+\frac{a}{d}Q$$，位于球心），<br>
+                    球外空间电位$$\varphi=\frac{1}{4\pi\varepsilon_{0}}[\frac{Q}{R}+\frac{Q'}{r'}+\frac{Q''}{r}]$$。
+                </div>
+                
+                <h3>电介质中的镜像</h3>
+                <div class="formula">
+                    两种电介质分界面问题，<br>
+                    $$q'=\frac{\varepsilon_{1}-\varepsilon_{2}}{\varepsilon_{1}+\varepsilon_{2}}q$$，<br>
+                    $$q''=-q'=\frac{\varepsilon_{2}-\varepsilon_{1}}{\varepsilon_{1}+\varepsilon_{2}}q$$。
+                </div>
+            </div>
+        </div>
+
+        <!-- 第六章 -->
+        <div class="chapter-content" id="ch6">
+            <h2>第6章</h2>
+            <div class="section">
+                <h2>麦克斯韦方程组</h2>
+                
+                <h3>积分形式</h3>
+                <div class="formula">
+                    
+            $$
+            \begin{cases}
+                    \oint_{C}\vec{H}\cdot d\vec{l}=\int_{S}(\vec{J}+\frac{\partial\vec{D}}{\partial t})\cdot d\vec{S} \\
+                    \oint_{C}\vec{E}\cdot d\vec{l}=-\int_{S}\frac{\partial\vec{B}}{\partial t}\cdot d\vec{S} \\
+                    \oint_{S}\vec{D}\cdot d\vec{S}=Q \\
+                    \oint_{S}\vec{B}\cdot d\vec{S}=0
+                    \end{cases}
+            $$
+                </div>
+                
+                <h3>微分形式</h3>
+                <div class="formula">
+                    
+            $$
+            \begin{cases}
+                    \nabla\times\vec{H}=\vec{J}+\frac{\partial\vec{D}}{\partial t} \\
+                    \nabla\times\vec{E}=-\frac{\partial\vec{B}}{\partial t} \\
+                    \nabla\cdot\vec{D}=\rho_{FC} \\
+                    \nabla\cdot\vec{B}=0
+                    \end{cases}
+            $$
+                </div>
+                
+                <h3>复数形式（时谐场）</h3>
+                <div class="formula">
+                    
+            $$
+            \begin{cases}
+                    \nabla\times\vec{\tilde{H}}=\vec{\tilde{J}}+j\omega\vec{\tilde{D}} \\
+                    \nabla\times\vec{\tilde{E}}=-j\omega\vec{\tilde{B}} \\
+                    \nabla\cdot\vec{\tilde{D}}=\rho_{FC} \\
+                    \nabla\cdot\vec{\tilde{B}}=0
+                    \end{cases}
+            $$
+                </div>
+                
+                <h3>物质本征方程（各向同性线性媒质）</h3>
+                <div class="formula">
+                    
+            $$
+            \begin{cases}
+                    \vec{D}=\varepsilon_{0}\varepsilon_{r}\vec{E}=\varepsilon\vec{E} \\
+                    \vec{B}=\mu_{0}\mu_{r}\vec{H}=\mu\vec{H}\approx\mu_{0}\vec{H} \\
+                    \vec{J}=\sigma\vec{E}
+                    \end{cases}
+            $$
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>电磁感应定律相关公式</h2>
+                <div class="formula">
+                    法拉第电磁感应定律：<br>
+                    $$\varepsilon = -\frac{d\Phi_{m}}{d t}$$，<br>
+                    $$\varepsilon_{in}=\oint_{C}\vec{E}_{in}\cdot d\vec{l}=-\frac{d\Phi}{d t}$$，<br>
+                    $$\oint_{C}\vec{E}\cdot d\vec{l}=-\frac{\partial}{\partial t}\int_{S}\vec{B}\cdot d\vec{S}$$（麦氏第二方程积分形式）。<br>
+                    
+                    由积分形式推导的微分形式：<br>
+                    $$\nabla\times\vec{E}=-\frac{\partial\vec{B}}{\partial t}$$。
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>安培环路定律相关公式</h2>
+                <div class="formula">
+                    麦克斯韦提出位移电流假说$$\vec{J}_{d}=\frac{\partial\vec{D}}{\partial t}$$，修正后的安培环路定律（麦氏第一方程）。<br>
+                    
+                    <strong>微分形式</strong>：<br>
+                    $$\nabla\times\vec{H}=\vec{J}+\frac{\partial\vec{D}}{\partial t}$$。<br>
+                    
+                    <strong>积分形式</strong>：<br>
+                    $$\oint_{C}\vec{H}\cdot d\vec{l}=\int_{S}(\vec{J}+\frac{\partial\vec{D}}{\partial t})\cdot d\vec{S}$$。
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>高斯定理相关公式</h2>
+                <div class="formula">
+                    <strong>电场高斯定理</strong>：<br>
+                    $$\oint\vec{D}\cdot d\vec{S}=Q$$（积分形式），<br>
+                    $$\nabla\cdot\vec{D}=\rho$$（微分形式）。<br>
+                    
+                    <strong>磁场高斯定理</strong>：<br>
+                    $$\oint_{S}\vec{B}\cdot d\vec{S}=0$$（积分形式），<br>
+                    $$\nabla\cdot\vec{B}=0$$（微分形式）。
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>时变电磁场的边界条件公式</h2>
+                
+                <h3>电位移法向条件</h3>
+                <div class="formula">
+                    $$\vec{a}_{n}\cdot(\vec{D}_{1}-\vec{D}_{2})=\rho_{S_{FC}}$$，<br>
+                    理想介质边界$$D_{1n}=D_{2n}$$，<br>
+                    理想导体边界$$D_{1n}=\rho_{S_{FC}}$$。
+                </div>
+                
+                <h3>电场强度切向连续</h3>
+                <div class="formula">
+                    $$\vec{a}_{n}\times(\vec{E}_{1}-\vec{E}_{2}) = 0$$，<br>
+                    理想介质边界$$E_{1t}=E_{2t}$$，<br>
+                    理想导体边界$$E_{1t}=0$$。
+                </div>
+                
+                <h3>磁通密度法向条件</h3>
+                <div class="formula">
+                    $$\vec{a}_{n}\cdot(\vec{B}_{1}-\vec{B}_{2}) = 0$$，<br>
+                    理想介质边界和理想导体边界均有$$B_{1n}=B_{2n}$$，<br>
+                    理想导体内部$$B_{1n}=B_{2n}=0$$。
+                </div>
+                
+                <h3>磁场强度切向条件</h3>
+                <div class="formula">
+                    $$\vec{a}_{n}\times(\vec{H}_{1}-\vec{H}_{2})=\vec{J}_{ST}$$，<br>
+                    理想介质边界$$H_{1t}=H_{2t}$$，<br>
+                    理想导体边界$$H_{1t}=J_{ST}$$。
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>坡印廷定理与坡印廷矢量公式</h2>
+                
+                <h3>坡印廷定理</h3>
+                <div class="formula">
+                    $$-\oint_{S}(\vec{E}\times\vec{H})\cdot d\vec{S}=\int_{V}(\vec{H}\cdot\frac{\partial\vec{B}}{\partial t}+\vec{E}\cdot\frac{\partial\vec{D}}{\partial t}+\vec{J}\cdot\vec{E})dV$$（一般形式）；<br>
+                    复数形式<br>
+                    $$-\frac{1}{2}\oint_{S}(\vec{E}\times\vec{H}^{*})\cdot d\vec{S}=j\omega\int_{V}\frac{1}{2}(\mu H_{0}^{2}-\varepsilon E_{0}^{2})dV+\int_{V}\frac{1}{2}(\sigma\cdot E^{2})dV$$。
+                </div>
+                
+                <h3>坡印廷矢量</h3>
+                <div class="formula">
+                    $$\vec{S}=\vec{E}\times\vec{H}$$（瞬时功率密度），<br>
+                    $$\vec{S}_{av}=\frac{1}{2}Re(\vec{E}\times\vec{H}^{*})$$（平均坡印廷矢量）。
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>交变电磁场的位与场公式</h2>
+                <div class="formula">
+                    <strong>矢量磁位与电场关系</strong>：<br>
+                    $$\vec{B}=\nabla\times\vec{A}$$，<br>
+                    $$\nabla\times\vec{E}=-\frac{\partial\vec{B}}{\partial t}$$，<br>
+                    $$-\nabla\psi=\vec{E}+\frac{\partial\vec{A}}{\partial t}$$。<br>
+                    
+                    <strong>矢量位偏微分方程</strong>：<br>
+                    $$\nabla^{2}\vec{A}-\mu\varepsilon\frac{\partial^{2}\vec{A}}{\partial^{2}t}=-\mu\vec{J}$$。<br>
+                    
+                    <strong>标量位偏微分方程</strong>：<br>
+                    $$\nabla^{2}\psi-\mu\varepsilon\frac{\partial^{2}\psi}{\partial^{2}t}=-\frac{\rho}{\varepsilon}$$。<br>
+                    
+                    <strong>洛仑兹规范条件</strong>：<br>
+                    $$\nabla\cdot\vec{A}=-j\omega\mu\varepsilon\psi$$，<br>
+                    $$\psi=\frac{-\nabla\cdot\vec{A}}{j\omega\mu\varepsilon}$$，<br>
+                    $$\vec{E}=\frac{-\nabla(\nabla\cdot\vec{A})}{j\omega\mu\varepsilon}-j\omega\vec{A}$$。
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 获取所有章节项
+            const chapterItems = document.querySelectorAll('.chapter-item');
+            // 为每个章节项添加点击事件
+            chapterItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    // 移除所有active类
+                    chapterItems.forEach(i => i.classList.remove('active'));
+                    // 为当前点击项添加active类
+                    this.classList.add('active');
+                    // 获取章节ID
+                    const chapterId = this.getAttribute('data-chapter');
+                    // 隐藏所有内容
+                    document.querySelectorAll('.chapter-content').forEach(content => {
+                        content.classList.remove('active');
+                    });
+                    // 显示当前章节内容
+                    document.getElementById(chapterId).classList.add('active');
+                });
+            });
+        });
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</body>
+</html>
