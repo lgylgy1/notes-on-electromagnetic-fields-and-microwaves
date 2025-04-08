@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>矢量微积分公式集</title>
+    <style>
+        body {
+            font-family: "Microsoft YaHei", sans-serif;
+            line-height: 1.8;
+            margin: 20px;
+            color: #333;
+        }
+        h1 {
+            color: #1a5276;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+            text-align: center;
+        }
+        h2 {
+            color: #2874a6;
+            margin-top: 25px;
+            border-left: 5px solid #3498db;
+            padding-left: 10px;
+        }
+        h3 {
+            color: #3498db;
+            margin-top: 20px;
+        }
+        .formula {
+            background-color: #f5f9fc;
+            padding: 12px;
+            border-radius: 5px;
+            border-left: 4px solid #5dade2;
+            margin: 15px 0;
+            overflow-x: auto;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .matrix {
+            display: inline-block;
+            vertical-align: middle;
+            margin: 8px 0;
+        }
+        .section {
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+    <h1>矢量微积分公式大全</h1>
+
+    <div class="section">
+        <h2>1. 矢量代数公式</h2>
+        
+        <h3>矢量和差运算</h3>
+        <div class="formula">
+            分量法公式：$$\vec{A}+\vec{B}=(A_{x}\vec{a}_{x}+A_{y}\vec{a}_{y}+A_{z}\vec{a}_{z})+(B_{x}\vec{a}_{x}+B_{y}\vec{a}_{y}+B_{z}\vec{a}_{z})$$
+        </div>
+        
+        <h3>点积（标量积）</h3>
+        <div class="formula">
+            定义式：$$\vec{A}\cdot\vec{B}=A\cdot B\cdot\cos\theta_{AB}$$<br>
+            分量表达式：$$\vec{A}\cdot\vec{B}=A_{x}B_{x}+A_{y}B_{y}+A_{z}B_{z}$$<br>
+            模的计算：$$|\vec{A}|=\sqrt{\vec{A}\cdot\vec{A}}$$
+        </div>
+        
+        <h3>叉积（矢量积）</h3>
+        <div class="formula">
+            模的计算：$$|\vec{A}\times\vec{B}| = |A\cdot B\cdot\sin\theta_{AB}|$$<br>
+            行列式表达式：
+            <div class="matrix">
+                
+$$
+\vec{A}\times\vec{B}=\begin{vmatrix}\vec{e}_{x}&\vec{e}_{y}&\vec{e}_{z}\\A_{x}&A_{y}&A_{z}\\B_{x}&B_{y}&B_{z}\end{vmatrix}
+$$
+            </div><br>
+            性质：<br>
+            $$\vec{A}\times\vec{B}=-\vec{B}\times\vec{A}$$（反交换律）<br>
+            $$\vec{A}\times(\vec{B}+\vec{C})=\vec{A}\times\vec{B}+\vec{A}\times\vec{C}$$（分配律）
+        </div>
+        
+        <h3>标量三重积</h3>
+        <div class="formula">
+            循环互换规律：$$\vec{A}\cdot(\vec{B}\times\vec{C})=\vec{B}\cdot(\vec{C}\times\vec{A})=\vec{C}\cdot(\vec{A}\times\vec{B})$$
+        </div>
+        
+        <h3>矢量三重积</h3>
+        <div class="formula">
+            展开公式：$$\vec{A}\times(\vec{B}\times\vec{C})=\vec{B}(\vec{C}\cdot\vec{A})-\vec{C}(\vec{A}\cdot\vec{B})$$
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>2. 坐标系相关公式</h2>
+        
+        <h3>直角坐标系</h3>
+        <div class="formula">
+            矢量表示：$$\vec{A}=A_{x}\vec{a}_{x}+A_{y}\vec{a}_{y}+A_{z}\vec{a}_{z}$$<br>
+            微分长度元：$$d\vec{l}=\vec{a}_{x}dx+\vec{a}_{y}dy+\vec{a}_{z}dz$$<br>
+            微分面积元：$$d\vec{S}_{x}=\vec{a}_{x}dydz$$, $$d\vec{S}_{y}=\vec{a}_{y}dzdx$$, $$d\vec{S}_{z}=\vec{a}_{z}dxdy$$<br>
+            微分体积元：$$dV = dxdydz$$
+        </div>
+        
+        <h3>柱坐标系</h3>
+        <div class="formula">
+            矢量表示：$$\vec{A}=A_{r}\vec{a}_{r}+A_{\varphi}\vec{a}_{\varphi}+A_{z}\vec{a}_{z}$$<br>
+            微分长度元：$$d\vec{l}=\vec{a}_{r}dr+\vec{a}_{\varphi}(r\cdot d\varphi)+\vec{a}_{z}dz$$<br>
+            微分面积元：$$d\vec{S}_{r}=\vec{a}_{r}(r\cdot d\varphi)dz$$, $$d\vec{S}_{\varphi}=\vec{a}_{\varphi}dr dz$$, $$d\vec{S}_{z}=\vec{a}_{z}(r\cdot d\varphi)dr$$<br>
+            微分体积元：$$dV = dr\cdot(r d\varphi)\cdot dz$$
+        </div>
+        
+        <h3>球坐标系</h3>
+        <div class="formula">
+            矢量表示：$$\vec{A}=A_{R}\vec{a}_{R}+A_{\theta}\vec{a}_{\theta}+A_{\varphi}\vec{a}_{\varphi}$$<br>
+            微分长度元：$$d\vec{l}=\vec{a}_{R}dR+\vec{a}_{\theta}(R\cdot d\theta)+\vec{a}_{\varphi}(R\cdot\sin\theta\cdot d\varphi)$$<br>
+            微分面积元：$$d\vec{S}_{R}=\vec{a}_{R}(R\sin\theta\cdot d\varphi)\cdot(Rd\theta)$$, $$d\vec{S}_{\theta}=\vec{a}_{\theta}(R\sin\theta\cdot d\varphi)\cdot dR$$, $$d\vec{S}_{\varphi}=\vec{a}_{\varphi}(R d\theta)\cdot dR$$<br>
+            微分体积元：$$dV=(R d\theta)\cdot(R\sin\theta\cdot d\varphi)\cdot dR$$
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>3. "三度"相关公式</h2>
+        
+        <h3>梯度</h3>
+        <div class="formula">
+            定义式：$$\nabla U = gradU=\vec{a}_{n}\frac{dU}{dn}=(\vec{a}_{x}\frac{\partial u}{\partial x}+\vec{a}_{y}\frac{\partial u}{\partial y}+\vec{a}_{z}\frac{\partial u}{\partial z})$$<br>
+            微分关系：$$du=\nabla u\cdot d\vec{l}$$<br>
+            不同坐标系下的∇算子：<br>
+            直角坐标系：$$\nabla=\vec{a}_{x}\frac{\partial}{\partial x}+\vec{a}_{y}\frac{\partial}{\partial y}+\vec{a}_{z}\frac{\partial}{\partial z}$$<br>
+            柱坐标系：$$\nabla=\vec{a}_{r}\frac{\partial}{\partial r}+\vec{a}_{\varphi}\frac{1}{r}\frac{\partial}{\partial \varphi}+\vec{a}_{z}\frac{\partial}{\partial z}$$<br>
+            球坐标系：$$\nabla=\vec{a}_{R}\frac{\partial}{\partial R}+\vec{a}_{\theta}\frac{1}{R}\frac{\partial}{\partial \theta}+\vec{a}_{\varphi}\frac{1}{R\cdot\sin\theta}\frac{\partial}{\partial \varphi}$$
+        </div>
+        
+        <h3>散度</h3>
+        <div class="formula">
+            定义式：$$div\vec{A}=\lim\limits_{\Delta v \to 0}\frac{\oint_{S}\vec{A}\cdot d\vec{s}}{\Delta V}=\nabla\cdot\vec{A}$$<br>
+            不同坐标系表达式：<br>
+            直角坐标系：$$\nabla\cdot\vec{A}=\frac{\partial A_{x}}{\partial x}+\frac{\partial A_{y}}{\partial y}+\frac{\partial A_{z}}{\partial z}$$<br>
+            柱坐标系：$$\nabla\cdot\vec{A}=\frac{1}{r}\cdot\frac{\partial}{\partial r}(r\cdot A_{r})+\frac{1}{r}\cdot\frac{\partial A_{\varphi}}{\partial \varphi}+\frac{\partial A_{z}}{\partial z}$$<br>
+            球坐标系：$$\nabla\cdot\vec{A}=\frac{1}{R^{2}}\cdot\frac{\partial}{\partial R}(R^{2}\cdot A_{R})+\frac{1}{R\cdot\sin\theta}\cdot\frac{\partial}{\partial \theta}(A_{\theta}\cdot\sin\theta)+\frac{1}{R\cdot\sin\theta}\cdot\frac{\partial A_{\varphi}}{\partial \varphi}$$
+        </div>
+        
+        <h3>旋度</h3>
+        <div class="formula">
+            定义式：$$rot_{n}\vec{A}=curl_{n}\vec{A}=\lim\limits_{\Delta S_{n} \to 0}\frac{\oint_{C}\vec{A}\cdot d\vec{l}}{\Delta S_{n}}=(\nabla\times\vec{A})_{n}$$<br>
+            直角坐标系表达式：
+            <div class="matrix">
+                
+$$
+\nabla\times\vec{B}=\begin{vmatrix}\vec{a}_{x}&\vec{a}_{y}&\vec{a}_{z}\\\frac{\partial}{\partial x}&\frac{\partial}{\partial y}&\frac{\partial}{\partial z}\\B_{x}&B_{y}&B_{z}\end{vmatrix}=\vec{a}_{x}(\frac{\partial B_{z}}{\partial y}-\frac{\partial B_{y}}{\partial z})+\vec{a}_{y}(\frac{\partial B_{x}}{\partial z}-\frac{\partial B_{z}}{\partial x})+\vec{a}_{z}(\frac{\partial B_{y}}{\partial x}-\frac{\partial B_{x}}{\partial y})
+$$
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>4. "三定理"公式</h2>
+        
+        <h3>高斯定理（散度定理）</h3>
+        <div class="formula">
+            $$\int_{V}(\nabla\cdot\vec{A})dv=\oint_{S}\vec{A}\cdot d\vec{s}$$
+        </div>
+        
+        <h3>斯托克斯定理</h3>
+        <div class="formula">
+            $$\int_{S}(\nabla\times\vec{A})\cdot d\vec{S}=\oint_{C}\vec{A}\cdot d\vec{l}$$
+        </div>
+        
+        <h3>亥姆霍兹定理</h3>
+        <div class="formula">
+            矢量分解：$$\vec{F}=-\nabla U+\nabla\times\vec{A}$$<br>
+            恒等式：<br>
+            $$\nabla\times\nabla U\equiv0$$（标量场梯度的旋度为零）<br>
+            $$\nabla\cdot(\nabla\times\vec{A})\equiv0$$（矢量场旋度的散度为零）
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>5. 运算基本公式</h2>
+        
+        <h3>梯度运算</h3>
+        <div class="formula">
+            $$\nabla f(u,v)=\frac{\partial f}{\partial u}\nabla u+\frac{\partial f}{\partial v}\nabla v$$<br>
+            $$\nabla(u\pm v)=\nabla u\pm\nabla v$$<br>
+            $$\nabla(Cu)=C\nabla u$$（C为常数）
+        </div>
+        
+        <h3>散度运算</h3>
+        <div class="formula">
+            $$\nabla\cdot(\vec{F}\pm\vec{G})=\nabla\cdot\vec{F}\pm\nabla\cdot\vec{G}$$<br>
+            $$\nabla\cdot(C\vec{F})=C\nabla\cdot\vec{F}$$（C为常数）<br>
+            $$\nabla\cdot(u\vec{F}) = u\nabla\cdot\vec{F}+\vec{F}\cdot\nabla u$$（u为标量函数）
+        </div>
+        
+        <h3>旋度运算</h3>
+        <div class="formula">
+            $$\nabla\cdot(\vec{F}\times\vec{G})=\vec{G}\cdot\nabla\times\vec{F}-\vec{F}\cdot\nabla\times\vec{G}$$<br>
+            $$\nabla\times(u\vec{F})=u\nabla\times\vec{F}+\nabla u\times\vec{F}$$<br>
+            $$\nabla\times(C\vec{F})=C\nabla\times\vec{F}$$（C为常数）<br>
+            $$\nabla\times(\vec{F}\pm\vec{G})=\nabla\times\vec{F}\pm\nabla\times\vec{G}$$<br>
+            $$\nabla\times\vec{C}=0$$（ $$\vec{C}$$ 为常矢量）
+        </div>
+    </div>
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</body>
+</html>
