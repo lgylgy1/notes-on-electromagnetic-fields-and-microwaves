@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
     <title>书籍目录侧边栏</title>
     <style>
         * {
@@ -16,79 +15,99 @@
         body {
             display: flex;
             min-height: 100vh;
-            background-color: #f8f9fa;
+            background-color: #f5f7fa;
+            color: #333;
         }
         
-        /* 侧边栏样式 */
+        /* 侧边栏样式优化 */
         .sidebar {
-            width: 240px;
-            background-color: white;
-            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
-            padding: 20px 0;
+            width: 260px;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            box-shadow: 2px 0 15px rgba(0, 0, 0, 0.08);
+            padding: 25px 0;
             height: 100vh;
             overflow-y: auto;
             position: sticky;
             top: 0;
+            border-right: 1px solid #e9ecef;
         }
         
         .sidebar-header {
-            padding: 0 20px 15px;
-            border-bottom: 1px solid #eee;
-            margin-bottom: 15px;
+            padding: 0 25px 20px;
+            border-bottom: 1px solid #e9ecef;
+            margin-bottom: 20px;
         }
         
         .sidebar-header h2 {
-            font-size: 18px;
-            color: #333;
+            font-size: 20px;
+            color: #2c3e50;
             font-weight: 600;
+            letter-spacing: 0.5px;
         }
         
         .chapter-list {
             list-style: none;
+            padding: 0;
         }
         
         .chapter-item {
-            padding: 8px 20px;
+            padding: 12px 25px;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.2s ease;
+            border-radius: 6px;
+            margin-bottom: 8px;
             display: flex;
             align-items: center;
+            font-size: 14px;
         }
         
         .chapter-item:hover {
-            background-color: #f0f2f5;
+            background-color: #f8f9fa;
+            transform: translateX(4px);
         }
         
         .chapter-item.active {
             background-color: #e6f7ff;
-            border-left: 3px solid #1890ff;
+            border-left: 4px solid #1890ff;
+            color: #1890ff;
+            font-weight: 500;
         }
         
         .chapter-icon {
-            width: 20px;
-            height: 20px;
-            margin-right: 12px;
-            background-color: #d9d9d9;
-            border-radius: 4px;
+            width: 24px;
+            height: 24px;
+            margin-right: 16px;
+            background-color: #e8f0fe;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
         .chapter-title {
             font-size: 14px;
             color: #333;
+            font-weight: 400;
         }
         
-        /* 主内容区域 */
+        /* 主内容区域优化 */
         .main-content {
             flex: 1;
-            padding: 30px;
+            padding: 35px;
             background-color: white;
-            margin: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            margin: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            position: relative;
+            z-index: 1;
         }
         
         .chapter-content {
             display: none;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.03);
         }
         
         .chapter-content.active {
@@ -96,15 +115,122 @@
         }
         
         .chapter-content h2 {
-            margin-bottom: 20px;
-            color: #333;
-            font-weight: 500;
+            margin-bottom: 25px;
+            color: #2c3e50;
+            font-weight: 600;
+            font-size: 24px;
+            line-height: 1.2;
+            letter-spacing: -0.5px;
         }
         
         .chapter-content p {
             line-height: 1.8;
-            color: #666;
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 15px;
+        }
+        
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        
+        .section h2 {
+            color: #2c3e50;
+            font-size: 20px;
             margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #1890ff;
+        }
+        
+        .formula {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 6px;
+            margin: 15px 0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            display: block;
+        }
+        
+        /* 行内公式样式 */
+        .formula .simple {
+            display: inline;
+            white-space: nowrap;
+        }
+        
+        /* 块级公式样式 */
+        .formula .complex {
+            display: block;
+            margin: 10px 0;
+            white-space: normal;
+        }
+        
+        .formula br {
+            display: block;
+            margin: 10px 0;
+        }
+        
+        .matrix {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 10px 0;
+            display: inline-block;
+            white-space: nowrap;
+        }
+        
+        /* 简单公式样式 */
+        .formula .simple {
+            display: inline-block;
+            white-space: nowrap;
+        }
+        
+        /* 复杂公式样式 */
+        .formula .complex {
+            display: block;
+            margin: 10px 0;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 1200px) {
+            .sidebar {
+                width: 220px;
+            }
+            
+            .main-content {
+                margin: 20px;
+                padding: 25px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: static;
+                border-right: none;
+                border-bottom: 1px solid #e9ecef;
+            }
+            
+            .main-content {
+                margin: 20px 0;
+            }
+        }
+        
+        /* 物理量样式 */
+        .physical-quantity {
+            display: inline-block;
+            white-space: nowrap;
+            background: #f8f9fa;
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin: 0 2px;
         }
     </style>
 </head>
@@ -112,35 +238,49 @@
     <!-- 左侧边栏 -->
     <nav class="sidebar">
         <div class="sidebar-header">
-            <h2>Notes on Electromagnetic Fields and Microwaves</h2>
+            <h2>电磁场与微波</h2>
         </div>
         <ul class="chapter-list">
             <li class="chapter-item active" data-chapter="preface">
-                <div class="chapter-icon"></div>
+                <div class="chapter-icon">
+                    <svg t="1744101975379" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5146" width="200" height="200"><path d="M512 555.744L238.976 942.528h546.048l-273.024-364.032m0-250.08a91.104 91.104 0 1 1-91.104 91.104 91.104 91.104 0 0 1 91.104-91.104z m379.904 416a407.808 407.808 0 0 0-33.312-64.992 432 432 0 0 0-7.04-530.144 385.376 385.376 0 0 0 29.024-68.032 498.72 498.72 0 0 1 11.328 663.328zM78.016 419.232a431.424 431.424 0 0 0 87.36 260.352 407.808 407.808 0 0 0-33.312 64.992 498.72 498.72 0 0 1 11.328-663.168 385.376 385.376 0 0 0 29.024 68.032 431.712 431.712 0 0 0-94.4 269.792z m674.56 203.808a257.024 257.024 0 0 0-21.088-41.152 273.664 273.664 0 0 0-4.448-335.712 243.936 243.936 0 0 0 18.368-43.104 315.84 315.84 0 0 1 7.168 419.968zM237.184 416.992a273.312 273.312 0 0 0 55.328 164.896 257.024 257.024 0 0 0-21.088 41.152 315.84 315.84 0 0 1 7.168-419.968 243.936 243.936 0 0 0 18.368 43.104 273.376 273.376 0 0 0-59.776 170.816z m418.4 121.312a154.624 154.624 0 0 0-12.576-24.576 163.2 163.2 0 0 0-2.656-200.352 144.8 144.8 0 0 0 10.976-25.6 188.512 188.512 0 0 1 4.256 250.528z m-307.616-122.976a163.008 163.008 0 0 0 33.024 98.4 154.624 154.624 0 0 0-12.576 24.576 188.512 188.512 0 0 1 4.288-250.656 144.8 144.8 0 0 0 10.976 25.6 163.2 163.2 0 0 0-35.712 102.208z" fill="#C0C0C0" p-id="5147"></path></svg>
+                </div>
                 <span class="chapter-title">序</span>
             </li>
             <li class="chapter-item" data-chapter="ch1">
-                <div class="chapter-icon"></div>
+                <div class="chapter-icon">
+                    <svg t="1744101618021" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4477" width="200" height="200"><path d="M512 555.744L238.976 942.528h546.048l-273.024-364.032m0-250.08a91.104 91.104 0 1 1-91.104 91.104 91.104 91.104 0 0 1 91.104-91.104z m379.904 416a407.808 407.808 0 0 0-33.312-64.992 432 432 0 0 0-7.04-530.144 385.376 385.376 0 0 0 29.024-68.032 498.72 498.72 0 0 1 11.328 663.328zM78.016 419.232a431.424 431.424 0 0 0 87.36 260.352 407.808 407.808 0 0 0-33.312 64.992 498.72 498.72 0 0 1 11.328-663.168 385.376 385.376 0 0 0 29.024 68.032 431.712 431.712 0 0 0-94.4 269.792z m674.56 203.808a257.024 257.024 0 0 0-21.088-41.152 273.664 273.664 0 0 0-4.448-335.712 243.936 243.936 0 0 0 18.368-43.104 315.84 315.84 0 0 1 7.168 419.968zM237.184 416.992a273.312 273.312 0 0 0 55.328 164.896 257.024 257.024 0 0 0-21.088 41.152 315.84 315.84 0 0 1 7.168-419.968 243.936 243.936 0 0 0 18.368 43.104 273.376 273.376 0 0 0-59.776 170.816z m418.4 121.312a154.624 154.624 0 0 0-12.576-24.576 163.2 163.2 0 0 0-2.656-200.352 144.8 144.8 0 0 0 10.976-25.6 188.512 188.512 0 0 1 4.256 250.528z m-307.616-122.976a163.008 163.008 0 0 0 33.024 98.4 154.624 154.624 0 0 0-12.576 24.576 188.512 188.512 0 0 1 4.288-250.656 144.8 144.8 0 0 0 10.976 25.6 163.2 163.2 0 0 0-35.712 102.208z" fill="#1296db" p-id="4478"></path></svg>
+                </div>
                 <span class="chapter-title">第1章</span>
             </li>
             <li class="chapter-item" data-chapter="ch2">
-                <div class="chapter-icon"></div>
+                <div class="chapter-icon">
+                    <svg t="1744101975379" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5146" width="200" height="200"><path d="M512 555.744L238.976 942.528h546.048l-273.024-364.032m0-250.08a91.104 91.104 0 1 1-91.104 91.104 91.104 91.104 0 0 1 91.104-91.104z m379.904 416a407.808 407.808 0 0 0-33.312-64.992 432 432 0 0 0-7.04-530.144 385.376 385.376 0 0 0 29.024-68.032 498.72 498.72 0 0 1 11.328 663.328zM78.016 419.232a431.424 431.424 0 0 0 87.36 260.352 407.808 407.808 0 0 0-33.312 64.992 498.72 498.72 0 0 1 11.328-663.168 385.376 385.376 0 0 0 29.024 68.032 431.712 431.712 0 0 0-94.4 269.792z m674.56 203.808a257.024 257.024 0 0 0-21.088-41.152 273.664 273.664 0 0 0-4.448-335.712 243.936 243.936 0 0 0 18.368-43.104 315.84 315.84 0 0 1 7.168 419.968zM237.184 416.992a273.312 273.312 0 0 0 55.328 164.896 257.024 257.024 0 0 0-21.088 41.152 315.84 315.84 0 0 1 7.168-419.968 243.936 243.936 0 0 0 18.368 43.104 273.376 273.376 0 0 0-59.776 170.816z m418.4 121.312a154.624 154.624 0 0 0-12.576-24.576 163.2 163.2 0 0 0-2.656-200.352 144.8 144.8 0 0 0 10.976-25.6 188.512 188.512 0 0 1 4.256 250.528z m-307.616-122.976a163.008 163.008 0 0 0 33.024 98.4 154.624 154.624 0 0 0-12.576 24.576 188.512 188.512 0 0 1 4.288-250.656 144.8 144.8 0 0 0 10.976 25.6 163.2 163.2 0 0 0-35.712 102.208z" fill="#f4ea2a" p-id="5147"></path></svg>
+                </div>
                 <span class="chapter-title">第2章</span>
             </li>
             <li class="chapter-item" data-chapter="ch3">
-                <div class="chapter-icon"></div>
+                <div class="chapter-icon">
+                    <svg t="1744101975379" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5146" width="200" height="200"><path d="M512 555.744L238.976 942.528h546.048l-273.024-364.032m0-250.08a91.104 91.104 0 1 1-91.104 91.104 91.104 91.104 0 0 1 91.104-91.104z m379.904 416a407.808 407.808 0 0 0-33.312-64.992 432 432 0 0 0-7.04-530.144 385.376 385.376 0 0 0 29.024-68.032 498.72 498.72 0 0 1 11.328 663.328zM78.016 419.232a431.424 431.424 0 0 0 87.36 260.352 407.808 407.808 0 0 0-33.312 64.992 498.72 498.72 0 0 1 11.328-663.168 385.376 385.376 0 0 0 29.024 68.032 431.712 431.712 0 0 0-94.4 269.792z m674.56 203.808a257.024 257.024 0 0 0-21.088-41.152 273.664 273.664 0 0 0-4.448-335.712 243.936 243.936 0 0 0 18.368-43.104 315.84 315.84 0 0 1 7.168 419.968zM237.184 416.992a273.312 273.312 0 0 0 55.328 164.896 257.024 257.024 0 0 0-21.088 41.152 315.84 315.84 0 0 1 7.168-419.968 243.936 243.936 0 0 0 18.368 43.104 273.376 273.376 0 0 0-59.776 170.816z m418.4 121.312a154.624 154.624 0 0 0-12.576-24.576 163.2 163.2 0 0 0-2.656-200.352 144.8 144.8 0 0 0 10.976-25.6 188.512 188.512 0 0 1 4.256 250.528z m-307.616-122.976a163.008 163.008 0 0 0 33.024 98.4 154.624 154.624 0 0 0-12.576 24.576 188.512 188.512 0 0 1 4.288-250.656 144.8 144.8 0 0 0 10.976 25.6 163.2 163.2 0 0 0-35.712 102.208z" fill="#1afa29" p-id="5147"></path></svg>
+                </div>
                 <span class="chapter-title">第3章</span>
             </li>
             <li class="chapter-item" data-chapter="ch4">
-                <div class="chapter-icon"></div>
+                <div class="chapter-icon">
+                    <svg t="1744101975379" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5146" width="200" height="200"><path d="M512 555.744L238.976 942.528h546.048l-273.024-364.032m0-250.08a91.104 91.104 0 1 1-91.104 91.104 91.104 91.104 0 0 1 91.104-91.104z m379.904 416a407.808 407.808 0 0 0-33.312-64.992 432 432 0 0 0-7.04-530.144 385.376 385.376 0 0 0 29.024-68.032 498.72 498.72 0 0 1 11.328 663.328zM78.016 419.232a431.424 431.424 0 0 0 87.36 260.352 407.808 407.808 0 0 0-33.312 64.992 498.72 498.72 0 0 1 11.328-663.168 385.376 385.376 0 0 0 29.024 68.032 431.712 431.712 0 0 0-94.4 269.792z m674.56 203.808a257.024 257.024 0 0 0-21.088-41.152 273.664 273.664 0 0 0-4.448-335.712 243.936 243.936 0 0 0 18.368-43.104 315.84 315.84 0 0 1 7.168 419.968zM237.184 416.992a273.312 273.312 0 0 0 55.328 164.896 257.024 257.024 0 0 0-21.088 41.152 315.84 315.84 0 0 1 7.168-419.968 243.936 243.936 0 0 0 18.368 43.104 273.376 273.376 0 0 0-59.776 170.816z m418.4 121.312a154.624 154.624 0 0 0-12.576-24.576 163.2 163.2 0 0 0-2.656-200.352 144.8 144.8 0 0 0 10.976-25.6 188.512 188.512 0 0 1 4.256 250.528z m-307.616-122.976a163.008 163.008 0 0 0 33.024 98.4 154.624 154.624 0 0 0-12.576 24.576 188.512 188.512 0 0 1 4.288-250.656 144.8 144.8 0 0 0 10.976 25.6 163.2 163.2 0 0 0-35.712 102.208z" fill="#d81e06" p-id="5147"></path></svg>
+                </div>
                 <span class="chapter-title">第4章</span>
             </li>
             <li class="chapter-item" data-chapter="ch5">
-                <div class="chapter-icon"></div>
+                <div class="chapter-icon">
+                    <svg t="1744101975379" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5146" width="200" height="200"><path d="M512 555.744L238.976 942.528h546.048l-273.024-364.032m0-250.08a91.104 91.104 0 1 1-91.104 91.104 91.104 91.104 0 0 1 91.104-91.104z m379.904 416a407.808 407.808 0 0 0-33.312-64.992 432 432 0 0 0-7.04-530.144 385.376 385.376 0 0 0 29.024-68.032 498.72 498.72 0 0 1 11.328 663.328zM78.016 419.232a431.424 431.424 0 0 0 87.36 260.352 407.808 407.808 0 0 0-33.312 64.992 498.72 498.72 0 0 1 11.328-663.168 385.376 385.376 0 0 0 29.024 68.032 431.712 431.712 0 0 0-94.4 269.792z m674.56 203.808a257.024 257.024 0 0 0-21.088-41.152 273.664 273.664 0 0 0-4.448-335.712 243.936 243.936 0 0 0 18.368-43.104 315.84 315.84 0 0 1 7.168 419.968zM237.184 416.992a273.312 273.312 0 0 0 55.328 164.896 257.024 257.024 0 0 0-21.088 41.152 315.84 315.84 0 0 1 7.168-419.968 243.936 243.936 0 0 0 18.368 43.104 273.376 273.376 0 0 0-59.776 170.816z m418.4 121.312a154.624 154.624 0 0 0-12.576-24.576 163.2 163.2 0 0 0-2.656-200.352 144.8 144.8 0 0 0 10.976-25.6 188.512 188.512 0 0 1 4.256 250.528z m-307.616-122.976a163.008 163.008 0 0 0 33.024 98.4 154.624 154.624 0 0 0-12.576 24.576 188.512 188.512 0 0 1 4.288-250.656 144.8 144.8 0 0 0 10.976 25.6 163.2 163.2 0 0 0-35.712 102.208z" fill="#d4237a" p-id="5147"></path></svg>
+                </div>
                 <span class="chapter-title">第5章</span>
             </li>
             <li class="chapter-item" data-chapter="ch6">
-                <div class="chapter-icon"></div>
+                <div class="chapter-icon">
+                    <svg t="1744101975379" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5146" width="200" height="200"><path d="M512 555.744L238.976 942.528h546.048l-273.024-364.032m0-250.08a91.104 91.104 0 1 1-91.104 91.104 91.104 91.104 0 0 1 91.104-91.104z m379.904 416a407.808 407.808 0 0 0-33.312-64.992 432 432 0 0 0-7.04-530.144 385.376 385.376 0 0 0 29.024-68.032 498.72 498.72 0 0 1 11.328 663.328zM78.016 419.232a431.424 431.424 0 0 0 87.36 260.352 407.808 407.808 0 0 0-33.312 64.992 498.72 498.72 0 0 1 11.328-663.168 385.376 385.376 0 0 0 29.024 68.032 431.712 431.712 0 0 0-94.4 269.792z m674.56 203.808a257.024 257.024 0 0 0-21.088-41.152 273.664 273.664 0 0 0-4.448-335.712 243.936 243.936 0 0 0 18.368-43.104 315.84 315.84 0 0 1 7.168 419.968zM237.184 416.992a273.312 273.312 0 0 0 55.328 164.896 257.024 257.024 0 0 0-21.088 41.152 315.84 315.84 0 0 1 7.168-419.968 243.936 243.936 0 0 0 18.368 43.104 273.376 273.376 0 0 0-59.776 170.816z m418.4 121.312a154.624 154.624 0 0 0-12.576-24.576 163.2 163.2 0 0 0-2.656-200.352 144.8 144.8 0 0 0 10.976-25.6 188.512 188.512 0 0 1 4.256 250.528z m-307.616-122.976a163.008 163.008 0 0 0 33.024 98.4 154.624 154.624 0 0 0-12.576 24.576 188.512 188.512 0 0 1 4.288-250.656 144.8 144.8 0 0 0 10.976 25.6 163.2 163.2 0 0 0-35.712 102.208z" fill="#13227a" p-id="5147"></path></svg>
+                </div>
                 <span class="chapter-title">第6章</span>
             </li>
         </ul>
@@ -154,162 +294,163 @@
             <p>欢迎阅读这份笔记，这份笔记旨在为读者提供电磁场与微波的复习指南。</p>
         </div>
         
-        <!-- 第1章 初识算法 -->
+        <!-- 第1章-->
         <div class="chapter-content" id="ch1">
             <h2>第1章</h2>
             <div class="section">
                 <h2>1. 矢量代数公式</h2>
-                
+        
                 <h3>矢量和差运算</h3>
                 <div class="formula">
-                    分量法公式：$$\vec{A}+\vec{B}=(A_{x}\vec{a}_{x}+A_{y}\vec{a}_{y}+A_{z}\vec{a}_{z})+(B_{x}\vec{a}_{x}+B_{y}\vec{a}_{y}+B_{z}\vec{a}_{z})$$
+                    分量法公式：<span class="simple">$$\vec{A}+\vec{B}=(A_{x}\vec{a}_{x}+A_{y}\vec{a}_{y}+A_{z}\vec{a}_{z})+(B_{x}\vec{a}_{x}+B_{y}\vec{a}_{y}+B_{z}\vec{a}_{z})$$</span>
                 </div>
-                
+        
                 <h3>点积（标量积）</h3>
                 <div class="formula">
-                    定义式：$$\vec{A}\cdot\vec{B}=A\cdot B\cdot\cos\theta_{AB}$$<br>
-                    分量表达式：$$\vec{A}\cdot\vec{B}=A_{x}B_{x}+A_{y}B_{y}+A_{z}B_{z}$$<br>
-                    模的计算：$$|\vec{A}|=\sqrt{\vec{A}\cdot\vec{A}}$$
+                    定义式：<span class="simple">$$\vec{A}\cdot\vec{B}=A\cdot B\cdot\cos\theta_{AB}$$</span><br>
+                    分量表达式：<span class="simple">$$\vec{A}\cdot\vec{B}=A_{x}B_{x}+A_{y}B_{y}+A_{z}B_{z}$$</span><br>
+                    模的计算：<span class="simple">$$|\vec{A}|=\sqrt{\vec{A}\cdot\vec{A}}$$</span>
                 </div>
-                
+        
                 <h3>叉积（矢量积）</h3>
                 <div class="formula">
-                    模的计算：$$|\vec{A}\times\vec{B}| = |A\cdot B\cdot\sin\theta_{AB}|$$<br>
+                    模的计算：<span class="simple">$$|\vec{A}\times\vec{B}| = |A\cdot B\cdot\sin\theta_{AB}|$$</span><br>
                     行列式表达式：
-                    <div class="matrix">
-                        
-        $$
-        \vec{A}\times\vec{B}=\begin{vmatrix}\vec{e}_{x}&\vec{e}_{y}&\vec{e}_{z}\\A_{x}&A_{y}&A_{z}\\B_{x}&B_{y}&B_{z}\end{vmatrix}
-        $$
+                    <div class="matrix complex">
+                        <span class="simple">
+                            $$
+                            \vec{A}\times\vec{B}=\begin{vmatrix}\vec{e}_{x}&\vec{e}_{y}&\vec{e}_{z}\\A_{x}&A_{y}&A_{z}\\B_{x}&B_{y}&B_{z}\end{vmatrix}
+                            $$
+                        </span>
                     </div><br>
                     性质：<br>
-                    $$\vec{A}\times\vec{B}=-\vec{B}\times\vec{A}$$（反交换律）<br>
-                    $$\vec{A}\times(\vec{B}+\vec{C})=\vec{A}\times\vec{B}+\vec{A}\times\vec{C}$$（分配律）
+                    <span class="simple">$$\vec{A}\times\vec{B}=-\vec{B}\times\vec{A}$$</span>（反交换律）<br>
+                    <span class="simple">$$\vec{A}\times(\vec{B}+\vec{C})=\vec{A}\times\vec{B}+\vec{A}\times\vec{C}$$</span>（分配律）
                 </div>
-                
+        
                 <h3>标量三重积</h3>
                 <div class="formula">
-                    循环互换规律：$$\vec{A}\cdot(\vec{B}\times\vec{C})=\vec{B}\cdot(\vec{C}\times\vec{A})=\vec{C}\cdot(\vec{A}\times\vec{B})$$
+                    循环互换规律：<span class="simple">$$\vec{A}\cdot(\vec{B}\times\vec{C})=\vec{B}\cdot(\vec{C}\times\vec{A})=\vec{C}\cdot(\vec{A}\times\vec{B})$$</span>
                 </div>
-                
+        
                 <h3>矢量三重积</h3>
                 <div class="formula">
-                    展开公式：$$\vec{A}\times(\vec{B}\times\vec{C})=\vec{B}(\vec{C}\cdot\vec{A})-\vec{C}(\vec{A}\cdot\vec{B})$$
+                    展开公式：<span class="simple">$$\vec{A}\times(\vec{B}\times\vec{C})=\vec{B}(\vec{C}\cdot\vec{A})-\vec{C}(\vec{A}\cdot\vec{B})$$</span>
                 </div>
             </div>
         
             <div class="section">
                 <h2>2. 坐标系相关公式</h2>
-                
+        
                 <h3>直角坐标系</h3>
                 <div class="formula">
-                    矢量表示：$$\vec{A}=A_{x}\vec{a}_{x}+A_{y}\vec{a}_{y}+A_{z}\vec{a}_{z}$$<br>
-                    微分长度元：$$d\vec{l}=\vec{a}_{x}dx+\vec{a}_{y}dy+\vec{a}_{z}dz$$<br>
-                    微分面积元：$$d\vec{S}_{x}=\vec{a}_{x}dydz$$, $$d\vec{S}_{y}=\vec{a}_{y}dzdx$$, $$d\vec{S}_{z}=\vec{a}_{z}dxdy$$<br>
-                    微分体积元：$$dV = dxdydz$$
+                    矢量表示：<span class="simple">$$\vec{A}=A_{x}\vec{a}_{x}+A_{y}\vec{a}_{y}+A_{z}\vec{a}_{z}$$</span><br>
+                    微分长度元：<span class="simple">$$d\vec{l}=\vec{a}_{x}dx+\vec{a}_{y}dy+\vec{a}_{z}dz$$</span><br>
+                    微分面积元：<span class="simple">$$d\vec{S}_{x}=\vec{a}_{x}dydz$$</span>, <span class="simple">$$d\vec{S}_{y}=\vec{a}_{y}dzdx$$</span>, <span class="simple">$$d\vec{S}_{z}=\vec{a}_{z}dxdy$$</span><br>
+                    微分体积元：<span class="simple">$$dV = dxdydz$$</span>
                 </div>
-                
+        
                 <h3>柱坐标系</h3>
                 <div class="formula">
-                    矢量表示：$$\vec{A}=A_{r}\vec{a}_{r}+A_{\varphi}\vec{a}_{\varphi}+A_{z}\vec{a}_{z}$$<br>
-                    微分长度元：$$d\vec{l}=\vec{a}_{r}dr+\vec{a}_{\varphi}(r\cdot d\varphi)+\vec{a}_{z}dz$$<br>
-                    微分面积元：$$d\vec{S}_{r}=\vec{a}_{r}(r\cdot d\varphi)dz$$, $$d\vec{S}_{\varphi}=\vec{a}_{\varphi}dr dz$$, $$d\vec{S}_{z}=\vec{a}_{z}(r\cdot d\varphi)dr$$<br>
-                    微分体积元：$$dV = dr\cdot(r d\varphi)\cdot dz$$
+                    矢量表示：<span class="simple">$$\vec{A}=A_{r}\vec{a}_{r}+A_{\varphi}\vec{a}_{\varphi}+A_{z}\vec{a}_{z}$$</span><br>
+                    微分长度元：<span class="simple">$$d\vec{l}=\vec{a}_{r}dr+\vec{a}_{\varphi}(r\cdot d\varphi)+\vec{a}_{z}dz$$</span><br>
+                    微分面积元：<span class="simple">$$d\vec{S}_{r}=\vec{a}_{r}(r\cdot d\varphi)dz$$</span>, <span class="simple">$$d\vec{S}_{\varphi}=\vec{a}_{\varphi}dr dz$$</span>, <span class="simple">$$d\vec{S}_{z}=\vec{a}_{z}(r\cdot d\varphi)dr$$</span><br>
+                    微分体积元：<span class="simple">$$dV = dr\cdot(r d\varphi)\cdot dz$$</span>
                 </div>
-                
+        
                 <h3>球坐标系</h3>
                 <div class="formula">
-                    矢量表示：$$\vec{A}=A_{R}\vec{a}_{R}+A_{\theta}\vec{a}_{\theta}+A_{\varphi}\vec{a}_{\varphi}$$<br>
-                    微分长度元：$$d\vec{l}=\vec{a}_{R}dR+\vec{a}_{\theta}(R\cdot d\theta)+\vec{a}_{\varphi}(R\cdot\sin\theta\cdot d\varphi)$$<br>
-                    微分面积元：$$d\vec{S}_{R}=\vec{a}_{R}(R\sin\theta\cdot d\varphi)\cdot(Rd\theta)$$, $$d\vec{S}_{\theta}=\vec{a}_{\theta}(R\sin\theta\cdot d\varphi)\cdot dR$$, $$d\vec{S}_{\varphi}=\vec{a}_{\varphi}(R d\theta)\cdot dR$$<br>
-                    微分体积元：$$dV=(R d\theta)\cdot(R\sin\theta\cdot d\varphi)\cdot dR$$
+                    矢量表示：<span class="simple">$$\vec{A}=A_{R}\vec{a}_{R}+A_{\theta}\vec{a}_{\theta}+A_{\varphi}\vec{a}_{\varphi}$$</span><br>
+                    微分长度元：<span class="simple">$$d\vec{l}=\vec{a}_{R}dR+\vec{a}_{\theta}(R\cdot d\theta)+\vec{a}_{\varphi}(R\cdot\sin\theta\cdot d\varphi)$$</span><br>
+                    微分面积元：<span class="simple">$$d\vec{S}_{R}=\vec{a}_{R}(R\sin\theta\cdot d\varphi)\cdot(Rd\theta)$$</span>, <span class="simple">$$d\vec{S}_{\theta}=\vec{a}_{\theta}(R\sin\theta\cdot d\varphi)\cdot dR$$</span>, <span class="simple">$$d\vec{S}_{\varphi}=\vec{a}_{\varphi}(R d\theta)\cdot dR$$</span><br>
+                    微分体积元：<span class="simple">$$dV=(R d\theta)\cdot(R\sin\theta\cdot d\varphi)\cdot dR$$</span>
                 </div>
             </div>
         
             <div class="section">
                 <h2>3. "三度"相关公式</h2>
-                
+        
                 <h3>梯度</h3>
                 <div class="formula">
-                    定义式：$$\nabla U = gradU=\vec{a}_{n}\frac{dU}{dn}=(\vec{a}_{x}\frac{\partial u}{\partial x}+\vec{a}_{y}\frac{\partial u}{\partial y}+\vec{a}_{z}\frac{\partial u}{\partial z})$$<br>
-                    微分关系：$$du=\nabla u\cdot d\vec{l}$$<br>
+                    定义式：<span class="simple">$$\nabla U = gradU=\vec{a}_{n}\frac{dU}{dn}=(\vec{a}_{x}\frac{\partial u}{\partial x}+\vec{a}_{y}\frac{\partial u}{\partial y}+\vec{a}_{z}\frac{\partial u}{\partial z})$$</span><br>
+                    微分关系：<span class="simple">$$du=\nabla u\cdot d\vec{l}$$</span><br>
                     不同坐标系下的∇算子：<br>
-                    直角坐标系：$$\nabla=\vec{a}_{x}\frac{\partial}{\partial x}+\vec{a}_{y}\frac{\partial}{\partial y}+\vec{a}_{z}\frac{\partial}{\partial z}$$<br>
-                    柱坐标系：$$\nabla=\vec{a}_{r}\frac{\partial}{\partial r}+\vec{a}_{\varphi}\frac{1}{r}\frac{\partial}{\partial \varphi}+\vec{a}_{z}\frac{\partial}{\partial z}$$<br>
-                    球坐标系：$$\nabla=\vec{a}_{R}\frac{\partial}{\partial R}+\vec{a}_{\theta}\frac{1}{R}\frac{\partial}{\partial \theta}+\vec{a}_{\varphi}\frac{1}{R\cdot\sin\theta}\frac{\partial}{\partial \varphi}$$
+                    直角坐标系：<span class="simple">$$\nabla=\vec{a}_{x}\frac{\partial}{\partial x}+\vec{a}_{y}\frac{\partial}{\partial y}+\vec{a}_{z}\frac{\partial}{\partial z}$$</span><br>
+                    柱坐标系：<span class="simple">$$\nabla=\vec{a}_{r}\frac{\partial}{\partial r}+\vec{a}_{\varphi}\frac{1}{r}\frac{\partial}{\partial \varphi}+\vec{a}_{z}\frac{\partial}{\partial z}$$</span><br>
+                    球坐标系：<span class="simple">$$\nabla=\vec{a}_{R}\frac{\partial}{\partial R}+\vec{a}_{\theta}\frac{1}{R}\frac{\partial}{\partial \theta}+\vec{a}_{\varphi}\frac{1}{R\cdot\sin\theta}\frac{\partial}{\partial \varphi}$$</span>
                 </div>
-                
+        
                 <h3>散度</h3>
                 <div class="formula">
-                    定义式：$$div\vec{A}=\lim\limits_{\Delta v \to 0}\frac{\oint_{S}\vec{A}\cdot d\vec{s}}{\Delta V}=\nabla\cdot\vec{A}$$<br>
+                    定义式：<span class="simple">$$div\vec{A}=\lim\limits_{\Delta v \to 0}\frac{\oint_{S}\vec{A}\cdot d\vec{s}}{\Delta V}=\nabla\cdot\vec{A}$$</span><br>
                     不同坐标系表达式：<br>
-                    直角坐标系：$$\nabla\cdot\vec{A}=\frac{\partial A_{x}}{\partial x}+\frac{\partial A_{y}}{\partial y}+\frac{\partial A_{z}}{\partial z}$$<br>
-                    柱坐标系：$$\nabla\cdot\vec{A}=\frac{1}{r}\cdot\frac{\partial}{\partial r}(r\cdot A_{r})+\frac{1}{r}\cdot\frac{\partial A_{\varphi}}{\partial \varphi}+\frac{\partial A_{z}}{\partial z}$$<br>
-                    球坐标系：$$\nabla\cdot\vec{A}=\frac{1}{R^{2}}\cdot\frac{\partial}{\partial R}(R^{2}\cdot A_{R})+\frac{1}{R\cdot\sin\theta}\cdot\frac{\partial}{\partial \theta}(A_{\theta}\cdot\sin\theta)+\frac{1}{R\cdot\sin\theta}\cdot\frac{\partial A_{\varphi}}{\partial \varphi}$$
+                    直角坐标系：<span class="simple">$$\nabla\cdot\vec{A}=\frac{\partial A_{x}}{\partial x}+\frac{\partial A_{y}}{\partial y}+\frac{\partial A_{z}}{\partial z}$$</span><br>
+                    柱坐标系：<span class="simple">$$\nabla\cdot\vec{A}=\frac{1}{r}\cdot\frac{\partial}{\partial r}(r\cdot A_{r})+\frac{1}{r}\cdot\frac{\partial A_{\varphi}}{\partial \varphi}+\frac{\partial A_{z}}{\partial z}$$</span><br>
+                    球坐标系：<span class="simple">$$\nabla\cdot\vec{A}=\frac{1}{R^{2}}\cdot\frac{\partial}{\partial R}(R^{2}\cdot A_{R})+\frac{1}{R\cdot\sin\theta}\cdot\frac{\partial}{\partial \theta}(A_{\theta}\cdot\sin\theta)+\frac{1}{R\cdot\sin\theta}\cdot\frac{\partial A_{\varphi}}{\partial \varphi}$$</span>
                 </div>
-                
+        
                 <h3>旋度</h3>
                 <div class="formula">
-                    定义式：$$rot_{n}\vec{A}=curl_{n}\vec{A}=\lim\limits_{\Delta S_{n} \to 0}\frac{\oint_{C}\vec{A}\cdot d\vec{l}}{\Delta S_{n}}=(\nabla\times\vec{A})_{n}$$<br>
+                    定义式：<span class="simple">$$rot_{n}\vec{A}=curl_{n}\vec{A}=\lim\limits_{\Delta S_{n} \to 0}\frac{\oint_{C}\vec{A}\cdot d\vec{l}}{\Delta S_{n}}=(\nabla\times\vec{A})_{n}$$</span><br>
                     直角坐标系表达式：
                     <div class="matrix">
-                        
-        $$
-        \nabla\times\vec{B}=\begin{vmatrix}\vec{a}_{x}&\vec{a}_{y}&\vec{a}_{z}\\\frac{\partial}{\partial x}&\frac{\partial}{\partial y}&\frac{\partial}{\partial z}\\B_{x}&B_{y}&B_{z}\end{vmatrix}=\vec{a}_{x}(\frac{\partial B_{z}}{\partial y}-\frac{\partial B_{y}}{\partial z})+\vec{a}_{y}(\frac{\partial B_{x}}{\partial z}-\frac{\partial B_{z}}{\partial x})+\vec{a}_{z}(\frac{\partial B_{y}}{\partial x}-\frac{\partial B_{x}}{\partial y})
-        $$
+                        <span class="simple">
+                            $$
+                            \nabla\times\vec{B}=\begin{vmatrix}\vec{a}_{x}&\vec{a}_{y}&\vec{a}_{z}\\\frac{\partial}{\partial x}&\frac{\partial}{\partial y}&\frac{\partial}{\partial z}\\B_{x}&B_{y}&B_{z}\end{vmatrix}=\vec{a}_{x}(\frac{\partial B_{z}}{\partial y}-\frac{\partial B_{y}}{\partial z})+\vec{a}_{y}(\frac{\partial B_{x}}{\partial z}-\frac{\partial B_{z}}{\partial x})+\vec{a}_{z}(\frac{\partial B_{y}}{\partial x}-\frac{\partial B_{x}}{\partial y})
+                            $$
+                        </span>
                     </div>
                 </div>
             </div>
         
             <div class="section">
                 <h2>4. "三定理"公式</h2>
-                
+        
                 <h3>高斯定理（散度定理）</h3>
                 <div class="formula">
-                    $$\int_{V}(\nabla\cdot\vec{A})dv=\oint_{S}\vec{A}\cdot d\vec{s}$$
+                    <span class="simple">$$\int_{V}(\nabla\cdot\vec{A})dv=\oint_{S}\vec{A}\cdot d\vec{s}$$</span>
                 </div>
-                
+        
                 <h3>斯托克斯定理</h3>
                 <div class="formula">
-                    $$\int_{S}(\nabla\times\vec{A})\cdot d\vec{S}=\oint_{C}\vec{A}\cdot d\vec{l}$$
+                    <span class="simple">$$\int_{S}(\nabla\times\vec{A})\cdot d\vec{S}=\oint_{C}\vec{A}\cdot d\vec{l}$$</span>
                 </div>
-                
+        
                 <h3>亥姆霍兹定理</h3>
                 <div class="formula">
-                    矢量分解：$$\vec{F}=-\nabla U+\nabla\times\vec{A}$$<br>
+                    矢量分解：<span class="simple">$$\vec{F}=-\nabla U+\nabla\times\vec{A}$$</span><br>
                     恒等式：<br>
-                    $$\nabla\times\nabla U\equiv0$$（标量场梯度的旋度为零）<br>
-                    $$\nabla\cdot(\nabla\times\vec{A})\equiv0$$（矢量场旋度的散度为零）
+                    <span class="simple">$$\nabla\times\nabla U\equiv0$$</span>（标量场梯度的旋度为零）<br>
+                    <span class="simple">$$\nabla\cdot(\nabla\times\vec{A})\equiv0$$</span>（矢量场旋度的散度为零）
                 </div>
             </div>
         
             <div class="section">
                 <h2>5. 运算基本公式</h2>
-                
+        
                 <h3>梯度运算</h3>
                 <div class="formula">
-                    $$\nabla f(u,v)=\frac{\partial f}{\partial u}\nabla u+\frac{\partial f}{\partial v}\nabla v$$<br>
-                    $$\nabla(u\pm v)=\nabla u\pm\nabla v$$<br>
-                    $$\nabla(Cu)=C\nabla u$$（C为常数）
+                    <span class="simple">$$\nabla f(u,v)=\frac{\partial f}{\partial u}\nabla u+\frac{\partial f}{\partial v}\nabla v$$</span><br>
+                    <span class="simple">$$\nabla(u\pm v)=\nabla u\pm\nabla v$$</span><br>
+                    <span class="simple">$$\nabla(Cu)=C\nabla u$$</span>（C为常数）
                 </div>
-                
+        
                 <h3>散度运算</h3>
                 <div class="formula">
-                    $$\nabla\cdot(\vec{F}\pm\vec{G})=\nabla\cdot\vec{F}\pm\nabla\cdot\vec{G}$$<br>
-                    $$\nabla\cdot(C\vec{F})=C\nabla\cdot\vec{F}$$（C为常数）<br>
-                    $$\nabla\cdot(u\vec{F}) = u\nabla\cdot\vec{F}+\vec{F}\cdot\nabla u$$（u为标量函数）
+                    <span class="simple">$$\nabla\cdot(\vec{F}\pm\vec{G})=\nabla\cdot\vec{F}\pm\nabla\cdot\vec{G}$$</span><br>
+                    <span class="simple">$$\nabla\cdot(C\vec{F})=C\nabla\cdot\vec{F}$$</span>（C为常数）<br>
+                    <span class="simple">$$\nabla\cdot(u\vec{F}) = u\nabla\cdot\vec{F}+\vec{F}\cdot\nabla u$$</span>（u为标量函数）
                 </div>
-                
+        
                 <h3>旋度运算</h3>
                 <div class="formula">
-                    $$\nabla\cdot(\vec{F}\times\vec{G})=\vec{G}\cdot\nabla\times\vec{F}-\vec{F}\cdot\nabla\times\vec{G}$$<br>
-                    $$\nabla\times(u\vec{F})=u\nabla\times\vec{F}+\nabla u\times\vec{F}$$<br>
-                    $$\nabla\times(C\vec{F})=C\nabla\times\vec{F}$$（C为常数）<br>
-                    $$\nabla\times(\vec{F}\pm\vec{G})=\nabla\times\vec{F}\pm\nabla\times\vec{G}$$<br>
-                    $$\nabla\times\vec{C}=0$$（ $$\vec{C}$$ 为常矢量）
+                    <span class="simple">$$\nabla\cdot(\vec{F}\times\vec{G})=\vec{G}\cdot\nabla\times\vec{F}-\vec{F}\cdot\nabla\times\vec{G}$$</span><br>
+                    <span class="simple">$$\nabla\times(u\vec{F})=u\nabla\times\vec{F}+\nabla u\times\vec{F}$$</span><br>
+                    <span class="simple">$$\nabla\times(C\vec{F})=C\nabla\times\vec{F}$$</span>（C为常数）<br>
+                    <span class="simple">$$\nabla\times(\vec{F}\pm\vec{G})=\nabla\times\vec{F}\pm\nabla\times\vec{G}$$</span><br>
+                    <span class="simple">$$\nabla\times\vec{C}=0$$</span>（ <span class="simple">$$\vec{C}$$</span> 为常矢量）
                 </div>
             </div>
-        
         </div>
         
         <!-- 第二章 -->
@@ -320,23 +461,23 @@
                 
                 <h3>电荷密度公式</h3>
                 <div class="formula">
-                    <strong>体密度</strong>：$$\rho_{V}(\vec{r})=\lim\limits_{\Delta v \to 0}\frac{\Delta q}{\Delta v}(C/m^{3})$$，用于描述空间某点附近单位体积内的电荷量。<br>
-                    <strong>线密度</strong>：$$\rho_{l}(\vec{r})=\lim\limits_{\Delta l \to 0}\frac{\Delta q}{\Delta l}(C/m)$$，表示单位长度线段上的电荷量。<br>
-                    <strong>面密度</strong>：$$\sigma_{S}(\vec{r})=\lim\limits_{\Delta S \to 0}\frac{\Delta q}{\Delta S}(C/m^{2})$$，指单位面积上的电荷量。
+                    <strong>体密度</strong>：<span class="simple">$$\rho_{V}(\vec{r})=\lim\limits_{\Delta v \to 0}\frac{\Delta q}{\Delta v}(C/m^{3})$$</span>，用于描述空间某点附近单位体积内的电荷量。<br>
+                    <strong>线密度</strong>：<span class="simple">$$\rho_{l}(\vec{r})=\lim\limits_{\Delta l \to 0}\frac{\Delta q}{\Delta l}(C/m)$$</span>，表示单位长度线段上的电荷量。<br>
+                    <strong>面密度</strong>：<span class="simple">$$\sigma_{S}(\vec{r})=\lim\limits_{\Delta S \to 0}\frac{\Delta q}{\Delta S}(C/m^{2})$$</span>，指单位面积上的电荷量。
                 </div>
                 
                 <h3>库仑定律公式</h3>
                 <div class="formula">
-                    真空中：$$\vec{F}_{12}=\frac{q_{1} \cdot q_{2}}{4 \pi \varepsilon_{0} \cdot R^{2}} \vec{a}_{R}$$，$$\varepsilon_{0}\approx8.85×10^{-12}(F/m)$$为真空中介电常数，该公式表明真空中两个静止点电荷间的作用力与电荷量乘积成正比，与距离平方成反比。<br>
-                    介质中：$$\vec{F}_{12}=\frac{q_{1} \cdot q_{2}}{4 \pi \varepsilon \cdot R^{2}} \vec{a}_{R}$$，$$\varepsilon$$为介质介电常数。
+                    真空中：<span class="simple">$$\vec{F}_{12}=\frac{q_{1} \cdot q_{2}}{4 \pi \varepsilon_{0} \cdot R^{2}} \vec{a}_{R}$$</span>，$$\varepsilon_{0}\approx8.85×10^{-12}(F/m)$$为真空中介电常数，该公式表明真空中两个静止点电荷间的作用力与电荷量乘积成正比，与距离平方成反比。<br>
+                    介质中：<span class="simple">$$\vec{F}_{12}=\frac{q_{1} \cdot q_{2}}{4 \pi \varepsilon \cdot R^{2}} \vec{a}_{R}$$</span>，<span class="simple">$$\varepsilon$$</span>为介质介电常数。
                 </div>
                 
                 <h3>电场强度公式</h3>
                 <div class="formula">
-                    定义式：$$\vec{E}=\lim\limits_{q \to 0}\frac{\vec{F}}{q}(N/C或V/m)$$，通过单位试验电荷所受电场力定义电场强度。<br>
-                    真空中静止点电荷的电场强度：$$\vec{E}(\vec{R}, q_{1})=\frac{q_{1}}{4 \pi \varepsilon_{0} R^{2}} \vec{a}_{R}=-\frac{q_{1}}{4 \pi \varepsilon_{0}} \nabla(\frac{1}{R})$$。<br>
-                    多个点电荷电场强度叠加：$$\vec{E}=\sum\limits_{i = 1}^{N} \vec{E}_{i}$$，即总电场强度为各点电荷单独产生电场强度的矢量和。<br>
-                    分布电荷电场强度：$$d\vec{E}(\vec{r}, dq)=\frac{dq}{4 \pi \varepsilon_{0}} \cdot \frac{\vec{a}_{R}}{R^{2}}$$，$$dq = \rho_{V}dV$$（体分布电荷微元）或$$\sigma_{S}ds$$（面分布电荷微元）或$$\rho_{l}dl$$（线分布电荷微元），用于计算分布电荷产生的电场强度。
+                    定义式：<span class="simple">$$\vec{E}=\lim\limits_{q \to 0}\frac{\vec{F}}{q}(N/C或V/m)$$</span>，通过单位试验电荷所受电场力定义电场强度。<br>
+                    真空中静止点电荷的电场强度：<span class="simple">$$\vec{E}(\vec{R}, q_{1})=\frac{q_{1}}{4 \pi \varepsilon_{0} R^{2}} \vec{a}_{R}=-\frac{q_{1}}{4 \pi \varepsilon_{0}} \nabla(\frac{1}{R})$$</span>。<br>
+                    多个点电荷电场强度叠加：<span class="simple">$$\vec{E}=\sum\limits_{i = 1}^{N} \vec{E}_{i}$$</span>，即总电场强度为各点电荷单独产生电场强度的矢量和。<br>
+                    分布电荷电场强度：<span class="simple">$$d\vec{E}(\vec{r}, dq)=\frac{dq}{4 \pi \varepsilon_{0}} \cdot \frac{\vec{a}_{R}}{R^{2}}$$</span>，<span class="simple">$$dq = \rho_{V}dV$$</span>（体分布电荷微元）或<span class="simple">$$\sigma_{S}ds$$</span>（面分布电荷微元）或<span class="simple">$$\rho_{l}dl$$</span>（线分布电荷微元），用于计算分布电荷产生的电场强度。
                 </div>
             </div>
             
@@ -345,8 +486,8 @@
                 
                 <h3>散度方程</h3>
                 <div class="formula">
-                    积分形式：$$\oint_{S} \vec{E} \cdot d \vec{S}=\frac{1}{\varepsilon_{0}} \sum_{i = 1}^{n} q_{i}$$，表明穿出闭合曲面的净电通量与曲面内电荷代数和的关系，体现了静电场的通量源特性。<br>
-                    微分形式：$$\nabla \cdot \vec{E}=\frac{\rho}{\varepsilon_{0}}$$，$$\rho$$为电荷体密度，描述了空间某点电场强度散度与该点电荷体密度的关系。
+                    积分形式：<span class="simple">$$\oint_{S} \vec{E} \cdot d \vec{S}=\frac{1}{\varepsilon_{0}} \sum_{i = 1}^{n} q_{i}$$</span>，表明穿出闭合曲面的净电通量与曲面内电荷代数和的关系，体现了静电场的通量源特性。<br>
+                    微分形式：<span class="simple">$$\nabla \cdot \vec{E}=\frac{\rho}{\varepsilon_{0}}$$</span>，<span class="simple">$$\rho$$</span>为电荷体密度，描述了空间某点电场强度散度与该点电荷体密度的关系。
                 </div>
                 
                 <h3>旋度方程</h3>
@@ -366,13 +507,13 @@
                 
                 <h3>应用示例</h3>
                 <div class="formula">
-                    <strong>无限长带电直线</strong>：以线电荷为轴、$$r$$为半径、单位长度为高作圆柱面，$$\oint_{S} \vec{E} \cdot d \vec{S}=\int_{S_{1}} \vec{E} \cdot d \vec{S}+\int_{S_{2}} \vec{E} \cdot d \vec{S}+\int_{S_{3}} \vec{E} \cdot d \vec{S}=\frac{\rho_{l} \cdot 1}{\varepsilon_{0}}$$，最终可得$$\vec{E}=\vec{a}_{r} \frac{\rho_{l}}{2 \pi r \varepsilon_{0}}$$。<br>
-                    <strong>球面电荷</strong>：对于真空中半径为$$a$$、带电为$$Q$$的导体球，球内$$(r < a)$$：$$\frac{1}{\varepsilon_{0}} \int_{V} \rho dV = 0$$，$$\vec{E}=0$$；球外$$(r > a)$$：$$\frac{1}{\varepsilon_{0}} \int_{V} \rho dV=\frac{Q}{\varepsilon_{0}}$$，$$\oint_{S} \vec{E} \cdot d \vec{S}=E \cdot(4 \pi \cdot r^{2})$$，$$\vec{E}=\frac{1}{4 \pi \varepsilon_{0} \cdot r^{2}} \cdot Q \vec{a}_{R}$$。<br>
-                    <strong>球体电荷</strong>：真空中半径为$$a$$、体密度为$$\rho_{0}$$的球体，球外电场$$\vec{E}=\vec{a}_{R} \frac{\rho_{0} 4 \pi a^{3} / 3}{4 \pi \varepsilon_{0} \cdot r^{2}}=\frac{\rho_{0}}{3 \varepsilon_{0}} \cdot \frac{a^{3}}{r^{2}}$$；球内电场$$E=\int_{0}^{r} \frac{\rho_{0} \cdot 4 \pi r^{\prime 2} d r'}{4 \pi \varepsilon_{0} \cdot r^{2}}=\frac{\rho_{0}}{3 \varepsilon_{0}} r \vec{a}_{R}$$。<br>
-                    <strong>无限大平面电荷</strong>：电荷密度为$$\rho_{s}$$，$$\vec{E}_{1}(\vec{r}) \cdot \hat{e}_{z} S+\vec{E}_{2}(\vec{r}) \cdot(-\hat{e}_{z}) S=\frac{\rho_{s} S}{\varepsilon_{0}}$$，
-            $$
+                    <strong>无限长带电直线</strong>：以线电荷为轴、<span class="simple">$$r$$</span>为半径、单位长度为高作圆柱面，<span class="simple">$$\oint_{S} \vec{E} \cdot d \vec{S}=\int_{S_{1}} \vec{E} \cdot d \vec{S}+\int_{S_{2}} \vec{E} \cdot d \vec{S}+\int_{S_{3}} \vec{E} \cdot d \vec{S}=\frac{\rho_{l} \cdot 1}{\varepsilon_{0}}$$</span>，最终可得<span class="simple">$$\vec{E}=\vec{a}_{r} \frac{\rho_{l}}{2 \pi r \varepsilon_{0}}$$</span>。<br>
+                    <strong>球面电荷</strong>：对于真空中半径为<span class="simple">$$a$$</span>、带电为<span class="simple">$$Q$$</span>的导体球，球内<span class="simple">$$(r < a)$$</span>：<span class="simple">$$\frac{1}{\varepsilon_{0}} \int_{V} \rho dV = 0$$</span>，<span class="simple">$$\vec{E}=0$$</span>；球外<span class="simple">$$(r > a)$$</span>：<span class="simple">$$\frac{1}{\varepsilon_{0}} \int_{V} \rho dV=\frac{Q}{\varepsilon_{0}}$$</span>，<span class="simple">$$\oint_{S} \vec{E} \cdot d \vec{S}=E \cdot(4 \pi \cdot r^{2})$$</span>，<span class="simple">$$\vec{E}=\frac{1}{4 \pi \varepsilon_{0} \cdot r^{2}} \cdot Q \vec{a}_{R}$$</span>。<br>
+                    <strong>球体电荷</strong>：真空中半径为<span class="simple">$$a$$</span>、体密度为<span class="simple">$$\rho_{0}$$</span>的球体，球外电场<span class="simple">$$\vec{E}=\vec{a}_{R} \frac{\rho_{0} 4 \pi a^{3} / 3}{4 \pi \varepsilon_{0} \cdot r^{2}}=\frac{\rho_{0}}{3 \varepsilon_{0}} \cdot \frac{a^{3}}{r^{2}}$$</span>；球内电场<span class="simple">$$E=\int_{0}^{r} \frac{\rho_{0} \cdot 4 \pi r^{\prime 2} d r'}{4 \pi \varepsilon_{0} \cdot r^{2}}=\frac{\rho_{0}}{3 \varepsilon_{0}} r \vec{a}_{R}$$</span>。<br>
+                    <strong>无限大平面电荷</strong>：电荷密度为<span class="simple">$$\rho_{s}$$</span>，<span class="simple">$$\vec{E}_{1}(\vec{r}) \cdot \hat{e}_{z} S+\vec{E}_{2}(\vec{r}) \cdot(-\hat{e}_{z}) S=\frac{\rho_{s} S}{\varepsilon_{0}}$$</span>，
+                    <span class="simple">$$
             \vec{E}=\begin{cases}\frac{\rho_{s}}{2 \varepsilon_{0}} \hat{e}_{z} & (z > 0) \\ -\frac{\rho_{s}}{2 \varepsilon_{0}} \hat{e}_{z} & (z < 0)\end{cases}
-            $$
+            $$</span>
             。
                 </div>
             </div>
@@ -380,10 +521,10 @@
             <div class="section">
                 <h2>已知电场分布求电荷分布公式</h2>
                 <div class="formula">
-                    根据散度方程$$\nabla \cdot \vec{E}=\frac{\rho}{\varepsilon_{0}}$$，如已知自由空间球坐标系中电场分布$$E = E_{0}(a / r)^{2} e_{r}(r > a)$$、$$E = E_{0}(r / a)^{2} e_{r}(0 < r < a)$$，通过计算$$\nabla \cdot E=\frac{1}{r^{2}} \frac{\partial}{\partial r}(r^{2} E_{r})$$，可得
-            $$
+                    根据散度方程<span class="simple">$$\nabla \cdot \vec{E}=\frac{\rho}{\varepsilon_{0}}$$</span>，如已知自由空间球坐标系中电场分布$$E = E_{0}(a / r)^{2} e_{r}(r > a)$$、$$E = E_{0}(r / a)^{2} e_{r}(0 < r < a)$$，通过计算$$\nabla \cdot E=\frac{1}{r^{2}} \frac{\partial}{\partial r}(r^{2} E_{r})$$，可得
+                    <span class="simple">$$
             \rho = \begin{cases}0 & r > a \\ \frac{4 \varepsilon_{0} E_{0} r}{a^{2}} & 0 < r < a\end{cases}
-            $$
+            $$</span>
             。
                 </div>
             </div>
@@ -397,17 +538,17 @@
                 
                 <h3>电位差公式</h3>
                 <div class="formula">
-                    $$\psi_{B}-\psi_{A}=\int_{B}^{A}\vec{E}\cdot d\vec{l}$$，其物理含义为$$B$$点到$$A$$点电位的降低量等于电场力做的功，只与起点和终点位置有关，与路径无关。
+                    $$\psi_{B}-\psi_{A}=\int_{B}^{A}\vec{E}\cdot d\vec{l}$$，其物理含义为<span class="simple">$$B$$</span>点到<span class="simple">$$A$$</span>点电位的降低量等于电场力做功，只与起点和终点位置有关，与路径无关。
                 </div>
                 
                 <h3>点电荷电位公式</h3>
                 <div class="formula">
-                    令无穷远处电位为零，$$\psi_{\infty}=0$$，点电荷$$q$$在$$P$$点产生的电位$$\psi_{P点}=\int_{P点}^{\infty}\vec{E}\cdot d\vec{l}=\frac{q}{4\pi\varepsilon_{0}}\cdot\frac{1}{R}$$。
+                    令无穷远处电位为零，<span class="simple">$$\psi_{\infty}=0$$</span>，点电荷<span class="simple">$$q$$</span>在<span class="simple">$$P$$</span>点产生的电位$$\psi_{P点}=\int_{P点}^{\infty}\vec{E}\cdot d\vec{l}=\frac{q}{4\pi\varepsilon_{0}}\cdot\frac{1}{R}$$。
                 </div>
                 
                 <h3>复杂电荷分布电位公式</h3>
                 <div class="formula">
-                    $$\psi=\int\frac{dq}{4\pi\varepsilon R}$$ （根据电荷分布不同，$$dq$$分别对应体电荷$$\rho_{V}dV$$、面电荷$$\sigma_{S}ds$$、线电荷$$\rho_{l}dl$$进行积分；离散点电荷集合则求和）；<br>
+                    $$\psi=\int\frac{dq}{4\pi\varepsilon R}$$ （根据电荷分布不同，<span class="simple">$$dq$$</span>分别对应体电荷<span class="simple">$$\rho_{V}dV$$</span>、面电荷<span class="simple">$$\sigma_{S}ds$$</span>、线电荷<span class="simple">$$\rho_{l}dl$$</span>进行积分；离散点电荷集合则求和）；<br>
                     若已知电场分布，$$\psi_{B}=\int_{B}^{\infty}\vec{E}\cdot d\vec{l}$$。
                 </div>
             </div>
@@ -1108,7 +1249,7 @@
                 <h2>高斯定理相关公式</h2>
                 <div class="formula">
                     <strong>电场高斯定理</strong>：<br>
-                    $$\oint\vec{D}\cdot d\vec{S}=Q$$（积分形式），<br>
+                    $$\oint \vec{D} \cdot d \vec{S}=Q$$（积分形式），<br>
                     $$\nabla\cdot\vec{D}=\rho$$（微分形式）。<br>
                     
                     <strong>磁场高斯定理</strong>：<br>
@@ -1175,7 +1316,13 @@
                     $$-\nabla\psi=\vec{E}+\frac{\partial\vec{A}}{\partial t}$$。<br>
                     
                     <strong>矢量位偏微分方程</strong>：<br>
-                    $$\nabla^{2}\vec{A}-\mu\varepsilon\frac{\partial^{2}\vec{A}}{\partial^{2}t}=-\mu\vec{J}$$。<br>
+                    $$\nabla^{2}\vec{A}-\mu\varepsilon\frac{\partial^{2}\vec{A}}{\partial^{2}t}=-\mu\vec{J}$$，<br>
+                    可分解为<br>
+                    
+            $$
+            \begin{cases}\nabla^{2}A_{x}=-\mu J_{x}\\\nabla^{2}A_{y}=-\mu J_{y}\\\nabla^{2}A_{z}=-\mu J_{z}\end{cases}
+            $$
+            。<br>
                     
                     <strong>标量位偏微分方程</strong>：<br>
                     $$\nabla^{2}\psi-\mu\varepsilon\frac{\partial^{2}\psi}{\partial^{2}t}=-\frac{\rho}{\varepsilon}$$。<br>
